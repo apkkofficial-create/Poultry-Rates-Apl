@@ -4,16 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AP Daily Poultry Rates</title>
+  <meta name="theme-color" content="#0b1329">
   <link rel="manifest" href="manifest.json">
-
-  <!-- Service Worker Registration for PWABuilder -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/Poultry-Rates-Apl/OneSignalSDKWorker.js');
-      });
-    }
-  </script>
+  <link rel="icon" type="image/png" href="icon.png">
 
   <!-- OneSignal Push Notification Script -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -28,13 +21,7 @@
 
   <style>
     * { box-sizing: border-box; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-      background: #0b1329; 
-      color: #fff; 
-      margin: 0; 
-      padding: 16px 16px 65px 16px; 
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b1329; color: #fff; margin: 0; padding: 16px; }
     .container { max-width: 450px; margin: auto; }
     .header { text-align: center; margin-bottom: 14px; }
     .header h1 { font-size: 20px; color: #38bdf8; margin: 0 0 6px 0; font-weight: 800; }
@@ -46,35 +33,9 @@
     .rate-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #334155; font-size: 15px; }
     .rate-item:last-child { border-bottom: none; }
     .price { color: #4ade80; font-weight: bold; font-size: 19px; }
-    .btn { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; }
+    .btn { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; }
     .btn-wa { background: #22c55e; color: white; box-shadow: 0 4px 14px rgba(34,197,94,0.4); }
     .status-bar { text-align: center; font-size: 12px; color: #38bdf8; margin-top: 10px; font-weight: 500; }
-
-    .ticker-wrap {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #0f172a;
-      border-top: 2px solid #facc15;
-      color: #fff;
-      padding: 9px 0;
-      font-size: 13px;
-      overflow: hidden;
-      white-space: nowrap;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
-      z-index: 9999;
-    }
-    .ticker-move {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 100%;
-      animation: tickerAnimation 25s linear infinite;
-    }
-    @keyframes tickerAnimation {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-100%, 0, 0); }
-    }
   </style>
 </head>
 <body>
@@ -130,7 +91,7 @@
 
       <div class="rate-item">
         <span>🥚 1 గుడ్డు (Egg)</span>
-        <span class="price" id="eggOne">లోడ్ అవుతోంది...</span>
+        <span class="price" id="eggPiece">లోడ్ అవుతోంది...</span>
       </div>
       <div class="rate-item">
         <span>🥚 100 గుడ్లు (Eggs)</span>
@@ -150,34 +111,22 @@
     <div class="status-bar" id="updateStatus">తాజా ధరలు లోడ్ చేయబడుతున్నాయి...</div>
   </div>
 
-  <div class="ticker-wrap">
-    <div class="ticker-move" id="tickerText">
-      తాజా సమాచారం లోడ్ అవుతోంది...
-    </div>
-  </div>
-
   <script>
     let liveData = null;
 
     async function loadLiveRates() {
       try {
-        const response = await fetch('rates.json?nocache=' + Date.now(), {
-          cache: "no-store",
-          headers: { 'Cache-Control': 'no-cache' }
-        });
+        const response = await fetch('rates.json?v=' + new Date().getTime());
         liveData = await response.json();
         
         if (liveData.egg_time) document.getElementById('displayEggTime').innerText = liveData.egg_time;
         if (liveData.chicken_time) document.getElementById('displayChickenTime').innerText = liveData.chicken_time;
         if (liveData.updated_status) document.getElementById('updateStatus').innerText = '✅ ' + liveData.updated_status;
 
-        if (liveData.ad_text) {
-          document.getElementById('tickerText').innerText = liveData.ad_text;
-        }
-
         renderRates();
       } catch (err) {
-        document.getElementById('updateStatus').innerText = 'ఆఫ్‌లైన్ మోడ్';
+        document.getElementById('updateStatus').innerText = 'ఆఫ్‌లైన్ మోడ్ / ధరలు అందుబాటులో లేవు';
+        document.getElementById('eggPiece').innerText = '-';
       }
     }
 
@@ -189,12 +138,12 @@
       const zoneKey = selectedOpt.getAttribute('data-zone');
       const zone = liveData.zones[zoneKey] || liveData.zones['vja'];
 
-      const singleRate = Number(zone.egg_price) || 0;
-      const calculatedEgg100 = Math.round(singleRate * 100);
+      const piecePrice = Number(zone.egg_piece) || 0;
+      const calculatedEgg100 = Math.round(piecePrice * 100);
       const livePrice = Number(zone.live) || 0;
-      const skinPrice = livePrice + 100;
+      const skinPrice = zone.skinless ? Number(zone.skinless) : Math.round((livePrice / 0.67) + 30);
 
-      document.getElementById('eggOne').innerText = '₹' + singleRate.toFixed(2);
+      document.getElementById('eggPiece').innerText = '₹' + piecePrice.toFixed(2);
       document.getElementById('egg100').innerText = '₹' + calculatedEgg100;
       document.getElementById('liveBird').innerText = '₹' + livePrice;
       document.getElementById('skinless').innerText = '₹' + skinPrice;
@@ -202,15 +151,24 @@
 
     function shareWa() {
       const dName = document.getElementById('district').selectedOptions[0].text;
-      const egg1 = document.getElementById('eggOne').innerText;
+      const eggP = document.getElementById('eggPiece').innerText;
       const egg100 = document.getElementById('egg100').innerText;
       const live = document.getElementById('liveBird').innerText;
       const skin = document.getElementById('skinless').innerText;
       const eggT = document.getElementById('displayEggTime').innerText;
       const chkT = document.getElementById('displayChickenTime').innerText;
 
-      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 గుడ్డు రేట్ (${eggT}):\n▪️ 1 గుడ్డు: ${egg1}\n▪️ 100 గుడ్లు: ${egg100}\n\n🍗 చికెన్ రేట్ (${chkT}):\n▪️ లైవ్ బర్డ్ 1kg: ${live}\n▪️ స్కిన్‌లెస్ చికెన్: ${skin}\n\nప్రతిరోజూ తాజా మార్కెట్ రేట్ల కోసం మా యాప్‌ని డౌన్‌లోడ్ చేసుకోండి!`);
+      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 గుడ్డు రేట్ (${eggT}):\n▪️ 1 గుడ్డు: ${eggP}\n▪️ 100 గుడ్లు: ${egg100}\n\n🍗 చికెన్ రేట్ (${chkT}):\n▪️ లైవ్ బర్డ్ 1kg: ${live}\n▪️ స్కిన్‌లెస్ చికెన్: ${skin}\n\nతాజా మార్కెట్ రేట్ల కోసం చెక్ చేయండి!`);
       window.open('https://api.whatsapp.com/send?text=' + msg, '_blank');
+    }
+
+    // Service Worker రిజిస్ట్రేషన్
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./OneSignalSDKWorker.js')
+          .then((reg) => console.log('Service Worker Ready'))
+          .catch((err) => console.log('SW Registration Error:', err));
+      });
     }
 
     loadLiveRates();
