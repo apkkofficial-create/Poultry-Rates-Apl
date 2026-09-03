@@ -221,7 +221,7 @@
     // Service Worker గా OneSignalSDKWorker ను రిజిస్టర్ చేయడం
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./OneSignalSDKWorker.js')
+        navigator.serviceWorker.register('/Poultry-Rates-Api/OneSignalSDKWorker.js')
           .then((reg) => console.log('Service Worker Active'))
           .catch((err) => console.log('SW Error:', err));
       });
