@@ -76,7 +76,7 @@
       </select>
 
       <div class="rate-item">
-        <span>🥚 సింగిల్ గుడ్డు (Piece)</span>
+        <span>🥚 1 గుడ్డు (Egg)</span>
         <span class="price" id="eggPiece">లోడ్ అవుతోంది...</span>
       </div>
       <div class="rate-item">
@@ -123,10 +123,16 @@
       const zoneKey = selectedOpt.getAttribute('data-zone');
       const zone = liveData.zones[zoneKey] || liveData.zones['vja'];
 
-      document.getElementById('eggPiece').innerText = '₹' + Number(zone.egg_piece).toFixed(2);
-      document.getElementById('egg100').innerText = '₹' + zone.egg_100;
-      document.getElementById('liveBird').innerText = '₹' + zone.live;
-      document.getElementById('skinless').innerText = '₹' + (zone.live + 100);
+      // 1 గుడ్డు రేటు ఆధారం గా 100 గుడ్ల రేటు ఆటోమేటిక్ లెక్కింపు
+      const piecePrice = Number(zone.egg_piece) || 0;
+      const calculatedEgg100 = Math.round(piecePrice * 100);
+      const livePrice = Number(zone.live) || 0;
+      const skinPrice = livePrice + 100;
+
+      document.getElementById('eggPiece').innerText = '₹' + piecePrice.toFixed(2);
+      document.getElementById('egg100').innerText = '₹' + calculatedEgg100;
+      document.getElementById('liveBird').innerText = '₹' + livePrice;
+      document.getElementById('skinless').innerText = '₹' + skinPrice;
     }
 
     function shareWa() {
@@ -138,8 +144,7 @@
       const eggT = document.getElementById('displayEggTime').innerText;
       const chkT = document.getElementById('displayChickenTime').innerText;
 
-      // ఇక్కడ కేవలం యూజర్ ఎంచుకున్న జిల్లా పేరు మాత్రమే వస్తుంది
-      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 గుడ్డు రేట్ (${eggT}):\n▪️ సింగిల్: ${eggP}\n▪️ 100 గుడ్లు: ${egg100}\n\n🍗 చికెన్ రేట్ (${chkT}):\n▪️ లైవ్ బర్డ్ 1kg: ${live}\n▪️ స్కిన్‌లెస్ చికెన్: ${skin}\n\nప్రతిరోజూ తాజా మార్కెట్ రేట్ల కోసం మా యాప్‌ని డౌన్‌లోడ్ చేసుకోండి!`);
+      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 గుడ్డు రేట్ (${eggT}):\n▪️ 1 గుడ్డు: ${eggP}\n▪️ 100 గుడ్లు: ${egg100}\n\n🍗 చికెన్ రేట్ (${chkT}):\n▪️ లైవ్ బర్డ్ 1kg: ${live}\n▪️ స్కిన్‌లెస్ చికెన్: ${skin}\n\nప్రతిరోజూ తాజా మార్కెట్ రేట్ల కోసం మా యాప్‌ని డౌన్‌లోడ్ చేసుకోండి!`);
       window.open('https://api.whatsapp.com/send?text=' + msg, '_blank');
     }
 
