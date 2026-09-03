@@ -5,9 +5,9 @@
   "zones": {
     "vja": {
       "name": "విజయవాడ జోన్",
-      "egg_piece": 5.75,
+      "egg_piece": 6.45,
       "egg_100": 575,
-      "live": 112
+      "live": 125
     },
     "godavari": {
       "name": "గోదావరి జోన్",
