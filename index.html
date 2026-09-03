@@ -6,6 +6,15 @@
   <title>AP Daily Poultry Rates</title>
   <link rel="manifest" href="manifest.json">
 
+  <!-- Service Worker Registration for PWABuilder -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('OneSignalSDKWorker.js');
+      });
+    }
+  </script>
+
   <!-- OneSignal Push Notification Script -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
