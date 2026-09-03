@@ -163,7 +163,7 @@
 
     async function loadLiveRates() {
       try {
-        const response = await fetch('rates.json?v=' + new Date().getTime());
+        const response = await fetch('/Poultry-Rates-Api/rates.json?v=' + new Date().getTime());
         liveData = await response.json();
         
         if (liveData.egg_time) document.getElementById('displayEggTime').innerText = liveData.egg_time;
