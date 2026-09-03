@@ -5,23 +5,23 @@
   "zones": {
     "vja": {
       "name": "విజయవాడ జోన్",
-      "egg_price": 5.75,
-      "live": 112
+      "egg_price": 6.75,
+      "live": 120
     },
     "godavari": {
       "name": "గోదావరి జోన్",
-      "egg_price": 5.63,
-      "live": 110
+      "egg_price": 6.63,
+      "live": 120
     },
     "vizag": {
       "name": "విశాఖపట్నం జోన్",
-      "egg_price": 5.55,
-      "live": 114
+      "egg_price": 6.55,
+      "live": 119
     },
     "rayalaseema": {
       "name": "రాయలసీమ జోన్",
-      "egg_price": 5.70,
-      "live": 116
+      "egg_price": 6.70,
+      "live": 119
     }
   }
 }
