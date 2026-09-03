@@ -2,21 +2,21 @@
   "name": "AP Poultry Rates",
   "short_name": "Poultry Rates",
   "description": "Daily live broiler chicken and egg rates across AP",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "https://apkkofficial-create.github.io/Poultry-Rates-Apl/",
+  "scope": "https://apkkofficial-create.github.io/Poultry-Rates-Apl/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0b1329",
   "theme_color": "#0b1329",
   "icons": [
     {
-      "src": "Icon.png",
+      "src": "https://apkkofficial-create.github.io/Poultry-Rates-Apl/Icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "Icon.png",
+      "src": "https://apkkofficial-create.github.io/Poultry-Rates-Apl/Icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
