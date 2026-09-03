@@ -9,44 +9,47 @@
     * { box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b1329; color: #fff; margin: 0; padding: 16px; }
     .container { max-width: 450px; margin: auto; }
-    .header { text-align: center; margin-bottom: 20px; }
-    .header h1 { font-size: 21px; color: #38bdf8; margin: 0 0 6px 0; font-weight: 800; }
-    .header p { color: #94a3b8; font-size: 13.5px; margin: 0; }
+    .header { text-align: center; margin-bottom: 16px; }
+    .header h1 { font-size: 20px; color: #38bdf8; margin: 0 0 6px 0; font-weight: 800; }
+    .timing-badge { background: #1e293b; border: 1px solid #3b82f6; border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #94a3b8; margin-bottom: 14px; text-align: center; line-height: 1.6; }
+    .timing-badge span { color: #facc15; font-weight: bold; }
     .card { background: #1e293b; border-radius: 18px; padding: 18px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.35); border: 1px solid #334155; }
     .select-label { font-size: 13px; color: #38bdf8; margin-bottom: 8px; display: block; font-weight: 600; }
     .select-box { width: 100%; padding: 13px; background: #0f172a; color: white; border: 1.5px solid #3b82f6; border-radius: 12px; font-size: 15px; outline: none; margin-bottom: 15px; font-weight: bold; }
-    .rate-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #334155; font-size: 15.5px; }
+    .rate-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #334155; font-size: 15px; }
     .rate-item:last-child { border-bottom: none; }
     .price { color: #4ade80; font-weight: bold; font-size: 19px; }
     .btn { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; }
-    .btn-wa { background: #22c55e; color: white; box-shadow: 0 4px 14px rgba(34,197,94,0.4); margin-bottom: 10px; }
-    .btn-admin { background: #1e293b; color: #94a3b8; font-size: 13px; border: 1px dashed #475569; }
-    .history-title { font-size: 15px; color: #38bdf8; margin-top: 0; margin-bottom: 10px; }
-    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-    th, td { padding: 8px 4px; text-align: left; border-bottom: 1px solid #334155; }
-    th { color: #94a3b8; }
+    .btn-wa { background: #22c55e; color: white; box-shadow: 0 4px 14px rgba(34,197,94,0.4); }
+    .status-bar { text-align: center; font-size: 12px; color: #38bdf8; margin-top: 10px; font-weight: 500; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <h1>🐔 ఆంధ్రప్రదేశ్ పౌల్ట్రీ తాజా రేట్లు</h1>
-      <p id="todayDate">తేదీ: 03-09-2026 | మార్కెట్ లైవ్ రేట్స్</p>
+      <h1>🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు</h1>
+    </div>
+
+    <!-- మీరు rates.json లో మార్చే లైవ్ టైమింగ్స్ ఇక్కడ కనిపిస్తాయి -->
+    <div class="timing-badge">
+      ⏰ <b>మార్కెట్ టైమింగ్స్:</b><br>
+      🥚 ఎగ్ రేట్: <span id="displayEggTime">ఉదయం 08:00 AM</span><br>
+      🍗 చికెన్ రేట్: <span id="displayChickenTime">మధ్యాహ్నం 02:30 PM</span>
     </div>
 
     <div class="card">
-      <label class="select-label">📍 మీ జిల్లాను ఎంచుకోండి (Select District):</label>
-      <select class="select-box" id="district" onchange="updateView()">
+      <label class="select-label">📍 మీ జిల్లాను ఎంచుకోండి:</label>
+      <select class="select-box" id="district" onchange="renderRates()">
         <optgroup label="ప్రధాన పౌల్ట్రీ హబ్‌లు">
           <option value="wg">పశ్చిమ గోదావరి (West Godavari)</option>
           <option value="eg">తూర్పు గోదావరి (East Godavari)</option>
           <option value="elr">ఏలూరు (Eluru)</option>
           <option value="kkn">కాకినాడ (Kakinada)</option>
-          <option value="kon">కోనసీమ (Dr. B.R. Ambedkar Konaseema)</option>
-          <option value="ntr">ఎన్టీఆర్ జిల్లా / విజయవాడ (NTR / Vijayawada)</option>
+          <option value="kon">కోనసీమ (Konaseema)</option>
+          <option value="ntr">ఎన్టీఆర్ జిల్లా / విజయవాడ</option>
           <option value="krs">కృష్ణా (Machilipatnam)</option>
           <option value="gtr">గుంటూరు (Guntur)</option>
-          <option value="pal">పల్నాడు (Narasaraopet)</option>
+          <option value="pal">పల్నాడు (Palnadu)</option>
           <option value="bpt">బాపట్ల (Bapatla)</option>
           <option value="ctr">చిత్తూరు (Chittoor)</option>
           <option value="tpt">తిరుపతి (Tirupati)</option>
@@ -56,119 +59,89 @@
           <option value="ana">అనకాపల్లి (Anakapalli)</option>
           <option value="vzm">విజయనగరం (Vizianagaram)</option>
           <option value="skm">శ్రీకాకుళం (Srikakulam)</option>
-          <option value="pvy">పార్వతీపురం మన్యం (Manyam)</option>
-          <option value="asr">అల్లూరి సీతారామరాజు (ASR)</option>
-          <option value="prk">ప్రకాశం / ఒంగోలు (Prakasam)</option>
-          <option value="nlr">శ్రీ పొట్టి శ్రీరాములు నెల్లూరు (Nellore)</option>
+          <option value="pvy">పార్వతీపురం మన్యం</option>
+          <option value="asr">అల్లూరి సీతారామరాజు</option>
+          <option value="prk">ప్రకాశం (Prakasam)</option>
+          <option value="nlr">శ్రీ పొట్టి శ్రీరాములు నెల్లూరు</option>
         </optgroup>
         <optgroup label="రాయలసీమ జిల్లాలు">
           <option value="knl">కర్నూలు (Kurnool)</option>
           <option value="ndl">నంద్యాల (Nandyal)</option>
           <option value="atp">అనంతపురం (Anantapur)</option>
           <option value="ssp">శ్రీ సత్యసాయి (Puttaparthi)</option>
-          <option value="kdp">వైఎస్సార్ కడప (YSR Kadapa)</option>
+          <option value="kdp">వైఎస్సార్ కడప (Kadapa)</option>
           <option value="ann">అన్నమయ్య (Rayachoty)</option>
         </optgroup>
       </select>
 
       <div class="rate-item">
         <span>🥚 100 గుడ్లు (Eggs)</span>
-        <span class="price" id="egg100">₹475</span>
+        <span class="price" id="egg100">లోడ్ అవుతోంది...</span>
       </div>
       <div class="rate-item">
         <span>🥚 సింగిల్ గుడ్డు (Piece)</span>
-        <span class="price" id="eggPiece">₹4.75</span>
+        <span class="price" id="eggPiece">-</span>
       </div>
       <div class="rate-item">
         <span>🍗 బ్రాయిలర్ లైవ్ (1 Kg)</span>
-        <span class="price" id="liveBird">₹110</span>
+        <span class="price" id="liveBird">లోడ్ అవుతోంది...</span>
       </div>
       <div class="rate-item">
         <span>🥩 స్కిన్‌లెస్ చికెన్ (1 Kg)</span>
-        <span class="price" id="skinless">₹210</span>
+        <span class="price" id="skinless">-</span>
       </div>
     </div>
 
-    <div class="card">
-      <h3 class="history-title">📊 గత 5 రోజుల సగటు రేట్లు</h3>
-      <table>
-        <thead><tr><th>తేదీ</th><th>100 గుడ్లు</th><th>లైవ్ బర్డ్</th></tr></thead>
-        <tbody>
-          <tr><td>03-09</td><td>₹480</td><td>₹112</td></tr>
-          <tr><td>02-09</td><td>₹475</td><td>₹110</td></tr>
-          <tr><td>01-09</td><td>₹470</td><td>₹106</td></tr>
-          <tr><td>31-08</td><td>₹470</td><td>₹105</td></tr>
-          <tr><td>30-08</td><td>₹465</td><td>₹104</td></tr>
-        </tbody>
-      </table>
-    </div>
-
     <button class="btn btn-wa" onclick="shareWa()">📲 వాట్సాప్‌లో షేర్ చేయండి</button>
-    <button class="btn btn-admin" onclick="adminEdit()">🔒 అడ్మిన్ రేట్ ఎడిటర్</button>
+    <div class="status-bar" id="updateStatus">తాజా ధరలు లోడ్ చేయబడుతున్నాయి...</div>
   </div>
 
   <script>
-    const rates = {
-      wg: { egg: 476, live: 110, skin: 210 },
-      eg: { egg: 478, live: 111, skin: 211 },
-      elr: { egg: 476, live: 110, skin: 210 },
-      kkn: { egg: 478, live: 112, skin: 212 },
-      kon: { egg: 477, live: 111, skin: 211 },
-      ntr: { egg: 482, live: 113, skin: 215 },
-      krs: { egg: 480, live: 112, skin: 214 },
-      gtr: { egg: 480, live: 112, skin: 212 },
-      pal: { egg: 480, live: 113, skin: 213 },
-      bpt: { egg: 479, live: 112, skin: 212 },
-      ctr: { egg: 485, live: 115, skin: 218 },
-      tpt: { egg: 485, live: 115, skin: 218 },
-      vsp: { egg: 484, live: 114, skin: 216 },
-      ana: { egg: 483, live: 113, skin: 215 },
-      vzm: { egg: 485, live: 114, skin: 216 },
-      skm: { egg: 486, live: 115, skin: 218 },
-      pvy: { egg: 486, live: 115, skin: 218 },
-      asr: { egg: 487, live: 116, skin: 220 },
-      prk: { egg: 480, live: 112, skin: 212 },
-      nlr: { egg: 482, live: 113, skin: 214 },
-      knl: { egg: 484, live: 115, skin: 218 },
-      ndl: { egg: 484, live: 114, skin: 216 },
-      atp: { egg: 486, live: 116, skin: 220 },
-      ssp: { egg: 486, live: 116, skin: 220 },
-      kdp: { egg: 485, live: 115, skin: 218 },
-      ann: { egg: 485, live: 115, skin: 218 }
-    };
+    let currentRates = {};
 
-    function updateView() {
-      const selected = document.getElementById('district').value;
-      const d = rates[selected] || rates['wg'];
-      document.getElementById('egg100').innerText = '₹' + d.egg;
-      document.getElementById('eggPiece').innerText = '₹' + (d.egg / 100).toFixed(2);
-      document.getElementById('liveBird').innerText = '₹' + d.live;
-      document.getElementById('skinless').innerText = '₹' + d.skin;
+    async function loadLiveRates() {
+      try {
+        const response = await fetch('rates.json?v=' + new Date().getTime());
+        currentRates = await response.json();
+        
+        // లైవ్ టైమింగ్స్ అప్‌డేట్
+        if (currentRates.egg_time) {
+          document.getElementById('displayEggTime').innerText = currentRates.egg_time;
+        }
+        if (currentRates.chicken_time) {
+          document.getElementById('displayChickenTime').innerText = currentRates.chicken_time;
+        }
+        if (currentRates.updated_status) {
+          document.getElementById('updateStatus').innerText = '✅ ' + currentRates.updated_status;
+        }
+
+        renderRates();
+      } catch (err) {
+        document.getElementById('updateStatus').innerText = 'ఆఫ్‌లైన్ మోడ్';
+      }
+    }
+
+    function renderRates() {
+      const dist = document.getElementById('district').value;
+      const data = currentRates[dist] || { egg: 475, live: 110 };
+      const skinPrice = data.live + 100;
+
+      document.getElementById('egg100').innerText = '₹' + data.egg;
+      document.getElementById('eggPiece').innerText = '₹' + (data.egg / 100).toFixed(2);
+      document.getElementById('liveBird').innerText = '₹' + data.live;
+      document.getElementById('skinless').innerText = '₹' + skinPrice;
     }
 
     function shareWa() {
       const dName = document.getElementById('district').selectedOptions[0].text;
-      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 100 గుడ్లు: ${document.getElementById('egg100').innerText}\n🥚 సింగిల్ గుడ్డు: ${document.getElementById('eggPiece').innerText}\n🍗 బ్రాయిలర్ లైవ్ (1kg): ${document.getElementById('liveBird').innerText}\n🥩 స్కిన్‌లెస్ చికెన్ (1kg): ${document.getElementById('skinless').innerText}\n\nతాజా అప్‌డేట్స్ కోసం మా యాప్‌ని డౌన్‌లోడ్ చేసుకోండి!`);
+      const eggT = document.getElementById('displayEggTime').innerText;
+      const chkT = document.getElementById('displayChickenTime').innerText;
+      
+      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 100 గుడ్లు (${eggT}): ${document.getElementById('egg100').innerText}\n🥚 సింగిల్ గుడ్డు: ${document.getElementById('eggPiece').innerText}\n🍗 బ్రాయిలర్ లైవ్ (${chkT}): ${document.getElementById('liveBird').innerText}\n🥩 స్కిన్‌లెస్ చికెన్: ${document.getElementById('skinless').innerText}\n\nతాజా అప్‌డేట్స్ కోసం మా యాప్‌ని ఇప్పుడే డౌన్‌లోడ్ చేసుకోండి!`);
       window.open('https://api.whatsapp.com/send?text=' + msg, '_blank');
     }
 
-    function adminEdit() {
-      const pin = prompt('అడ్మిన్ సెక్యూరిటీ పిన్:');
-      if (pin === '1234') {
-        const cur = rates[document.getElementById('district').value];
-        const newEgg = prompt('100 గుడ్ల కొత్త ధర:', cur.egg);
-        const newLive = prompt('లైవ్ బర్డ్ కొత్త ధర:', cur.live);
-        if (newEgg) cur.egg = Number(newEgg);
-        if (newLive) cur.live = Number(newLive);
-        cur.skin = cur.live + 100;
-        updateView();
-        alert('ధరలు అప్‌డేట్ అయ్యాయి!');
-      } else if (pin !== null) {
-        alert('తప్పుడు పిన్!');
-      }
-    }
-
-    updateView();
+    loadLiveRates();
   </script>
 </body>
 </html>
