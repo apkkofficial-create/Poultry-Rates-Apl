@@ -9,7 +9,7 @@
     * { box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b1329; color: #fff; margin: 0; padding: 16px; }
     .container { max-width: 450px; margin: auto; }
-    .header { text-align: center; margin-bottom: 16px; }
+    .header { text-align: center; margin-bottom: 14px; }
     .header h1 { font-size: 20px; color: #38bdf8; margin: 0 0 6px 0; font-weight: 800; }
     .timing-badge { background: #1e293b; border: 1px solid #3b82f6; border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #94a3b8; margin-bottom: 14px; text-align: center; line-height: 1.6; }
     .timing-badge span { color: #facc15; font-weight: bold; }
@@ -30,61 +30,62 @@
       <h1>🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు</h1>
     </div>
 
-    <!-- మీరు rates.json లో మార్చే లైవ్ టైమింగ్స్ ఇక్కడ కనిపిస్తాయి -->
     <div class="timing-badge">
       ⏰ <b>మార్కెట్ టైమింగ్స్:</b><br>
       🥚 ఎగ్ రేట్: <span id="displayEggTime">ఉదయం 08:00 AM</span><br>
-      🍗 చికెన్ రేట్: <span id="displayChickenTime">మధ్యాహ్నం 02:30 PM</span>
+      🍗 లైవ్ బర్డ్: <span id="displayChickenTime">మధ్యాహ్నం 02:30 PM</span>
     </div>
 
     <div class="card">
-      <label class="select-label">📍 మీ జిల్లాను ఎంచుకోండి:</label>
+      <label class="select-label">📍 మీ జిల్లాను ఎంచుకోండి (Select District):</label>
       <select class="select-box" id="district" onchange="renderRates()">
-        <optgroup label="ప్రధాన పౌల్ట్రీ హబ్‌లు">
-          <option value="wg">పశ్చిమ గోదావరి (West Godavari)</option>
-          <option value="eg">తూర్పు గోదావరి (East Godavari)</option>
-          <option value="elr">ఏలూరు (Eluru)</option>
-          <option value="kkn">కాకినాడ (Kakinada)</option>
-          <option value="kon">కోనసీమ (Konaseema)</option>
-          <option value="ntr">ఎన్టీఆర్ జిల్లా / విజయవాడ</option>
-          <option value="krs">కృష్ణా (Machilipatnam)</option>
-          <option value="gtr">గుంటూరు (Guntur)</option>
-          <option value="pal">పల్నాడు (Palnadu)</option>
-          <option value="bpt">బాపట్ల (Bapatla)</option>
-          <option value="ctr">చిత్తూరు (Chittoor)</option>
-          <option value="tpt">తిరుపతి (Tirupati)</option>
+        <optgroup label="కోస్తా & అమరావతి జిల్లాలు">
+          <option value="gtr" data-zone="vja">గుంటూరు (Guntur)</option>
+          <option value="ntr" data-zone="vja">ఎన్టీఆర్ జిల్లా / విజయవాడ</option>
+          <option value="krs" data-zone="vja">కృష్ణా (Machilipatnam)</option>
+          <option value="pal" data-zone="vja">పల్నాడు (Narasaraopet)</option>
+          <option value="bpt" data-zone="vja">బాపట్ల (Bapatla)</option>
+          <option value="elr" data-zone="vja">ఏలూరు (Eluru)</option>
         </optgroup>
-        <optgroup label="కోస్తా & ఉత్తరాంధ్ర జిల్లాలు">
-          <option value="vsp">విశాఖపట్నం (Visakhapatnam)</option>
-          <option value="ana">అనకాపల్లి (Anakapalli)</option>
-          <option value="vzm">విజయనగరం (Vizianagaram)</option>
-          <option value="skm">శ్రీకాకుళం (Srikakulam)</option>
-          <option value="pvy">పార్వతీపురం మన్యం</option>
-          <option value="asr">అల్లూరి సీతారామరాజు</option>
-          <option value="prk">ప్రకాశం (Prakasam)</option>
-          <option value="nlr">శ్రీ పొట్టి శ్రీరాములు నెల్లూరు</option>
+        <optgroup label="గోదావరి జిల్లాలు">
+          <option value="eg" data-zone="godavari">తూర్పు గోదావరి (Rajahmundry)</option>
+          <option value="wg" data-zone="godavari">పశ్చిమ గోదావరి (Bhimavaram)</option>
+          <option value="kkn" data-zone="godavari">కాకినాడ (Kakinada)</option>
+          <option value="kon" data-zone="godavari">కోనసీమ (Amalapuram)</option>
         </optgroup>
-        <optgroup label="రాయలసీమ జిల్లాలు">
-          <option value="knl">కర్నూలు (Kurnool)</option>
-          <option value="ndl">నంద్యాల (Nandyal)</option>
-          <option value="atp">అనంతపురం (Anantapur)</option>
-          <option value="ssp">శ్రీ సత్యసాయి (Puttaparthi)</option>
-          <option value="kdp">వైఎస్సార్ కడప (Kadapa)</option>
-          <option value="ann">అన్నమయ్య (Rayachoty)</option>
+        <optgroup label="ఉత్తరాంధ్ర జిల్లాలు">
+          <option value="vsp" data-zone="vizag">విశాఖపట్నం (Visakhapatnam)</option>
+          <option value="ana" data-zone="vizag">అనకాపల్లి (Anakapalli)</option>
+          <option value="vzm" data-zone="vizag">విజయనగరం (Vizianagaram)</option>
+          <option value="skm" data-zone="vizag">శ్రీకాకుళం (Srikakulam)</option>
+          <option value="pvy" data-zone="vizag">పార్వతీపురం మన్యం</option>
+          <option value="asr" data-zone="vizag">అల్లూరి సీతారామరాజు</option>
+        </optgroup>
+        <optgroup label="రాయలసీమ & దక్షిణ జిల్లాలు">
+          <option value="knl" data-zone="rayalaseema">కర్నూలు (Kurnool)</option>
+          <option value="ndl" data-zone="rayalaseema">నంద్యాల (Nandyal)</option>
+          <option value="atp" data-zone="rayalaseema">అనంతపురం (Anantapur)</option>
+          <option value="ssp" data-zone="rayalaseema">శ్రీ సత్యసాయి (Puttaparthi)</option>
+          <option value="kdp" data-zone="rayalaseema">వైఎస్సార్ కడప (YSR Kadapa)</option>
+          <option value="ann" data-zone="rayalaseema">అన్నమయ్య (Rayachoty)</option>
+          <option value="ctr" data-zone="rayalaseema">చిత్తూరు (Chittoor)</option>
+          <option value="tpt" data-zone="rayalaseema">తిరుపతి (Tirupati)</option>
+          <option value="nlr" data-zone="rayalaseema">నెల్లూరు (Nellore)</option>
+          <option value="prk" data-zone="rayalaseema">ప్రకాశం (Prakasam)</option>
         </optgroup>
       </select>
 
       <div class="rate-item">
-        <span>🥚 100 గుడ్లు (Eggs)</span>
-        <span class="price" id="egg100">లోడ్ అవుతోంది...</span>
+        <span>🥚 సింగిల్ గుడ్డు (Piece)</span>
+        <span class="price" id="eggPiece">లోడ్ అవుతోంది...</span>
       </div>
       <div class="rate-item">
-        <span>🥚 సింగిల్ గుడ్డు (Piece)</span>
-        <span class="price" id="eggPiece">-</span>
+        <span>🥚 100 గుడ్లు (Eggs)</span>
+        <span class="price" id="egg100">-</span>
       </div>
       <div class="rate-item">
         <span>🍗 బ్రాయిలర్ లైవ్ (1 Kg)</span>
-        <span class="price" id="liveBird">లోడ్ అవుతోంది...</span>
+        <span class="price" id="liveBird">-</span>
       </div>
       <div class="rate-item">
         <span>🥩 స్కిన్‌లెస్ చికెన్ (1 Kg)</span>
@@ -97,23 +98,16 @@
   </div>
 
   <script>
-    let currentRates = {};
+    let liveData = null;
 
     async function loadLiveRates() {
       try {
         const response = await fetch('rates.json?v=' + new Date().getTime());
-        currentRates = await response.json();
+        liveData = await response.json();
         
-        // లైవ్ టైమింగ్స్ అప్‌డేట్
-        if (currentRates.egg_time) {
-          document.getElementById('displayEggTime').innerText = currentRates.egg_time;
-        }
-        if (currentRates.chicken_time) {
-          document.getElementById('displayChickenTime').innerText = currentRates.chicken_time;
-        }
-        if (currentRates.updated_status) {
-          document.getElementById('updateStatus').innerText = '✅ ' + currentRates.updated_status;
-        }
+        if (liveData.egg_time) document.getElementById('displayEggTime').innerText = liveData.egg_time;
+        if (liveData.chicken_time) document.getElementById('displayChickenTime').innerText = liveData.chicken_time;
+        if (liveData.updated_status) document.getElementById('updateStatus').innerText = '✅ ' + liveData.updated_status;
 
         renderRates();
       } catch (err) {
@@ -122,22 +116,30 @@
     }
 
     function renderRates() {
-      const dist = document.getElementById('district').value;
-      const data = currentRates[dist] || { egg: 475, live: 110 };
-      const skinPrice = data.live + 100;
+      if (!liveData || !liveData.zones) return;
 
-      document.getElementById('egg100').innerText = '₹' + data.egg;
-      document.getElementById('eggPiece').innerText = '₹' + (data.egg / 100).toFixed(2);
-      document.getElementById('liveBird').innerText = '₹' + data.live;
-      document.getElementById('skinless').innerText = '₹' + skinPrice;
+      const sel = document.getElementById('district');
+      const selectedOpt = sel.selectedOptions[0];
+      const zoneKey = selectedOpt.getAttribute('data-zone');
+      const zone = liveData.zones[zoneKey] || liveData.zones['vja'];
+
+      document.getElementById('eggPiece').innerText = '₹' + Number(zone.egg_piece).toFixed(2);
+      document.getElementById('egg100').innerText = '₹' + zone.egg_100;
+      document.getElementById('liveBird').innerText = '₹' + zone.live;
+      document.getElementById('skinless').innerText = '₹' + (zone.live + 100);
     }
 
     function shareWa() {
       const dName = document.getElementById('district').selectedOptions[0].text;
+      const eggP = document.getElementById('eggPiece').innerText;
+      const egg100 = document.getElementById('egg100').innerText;
+      const live = document.getElementById('liveBird').innerText;
+      const skin = document.getElementById('skinless').innerText;
       const eggT = document.getElementById('displayEggTime').innerText;
       const chkT = document.getElementById('displayChickenTime').innerText;
-      
-      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 100 గుడ్లు (${eggT}): ${document.getElementById('egg100').innerText}\n🥚 సింగిల్ గుడ్డు: ${document.getElementById('eggPiece').innerText}\n🍗 బ్రాయిలర్ లైవ్ (${chkT}): ${document.getElementById('liveBird').innerText}\n🥩 స్కిన్‌లెస్ చికెన్: ${document.getElementById('skinless').innerText}\n\nతాజా అప్‌డేట్స్ కోసం మా యాప్‌ని ఇప్పుడే డౌన్‌లోడ్ చేసుకోండి!`);
+
+      // ఇక్కడ కేవలం యూజర్ ఎంచుకున్న జిల్లా పేరు మాత్రమే వస్తుంది
+      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 గుడ్డు రేట్ (${eggT}):\n▪️ సింగిల్: ${eggP}\n▪️ 100 గుడ్లు: ${egg100}\n\n🍗 చికెన్ రేట్ (${chkT}):\n▪️ లైవ్ బర్డ్ 1kg: ${live}\n▪️ స్కిన్‌లెస్ చికెన్: ${skin}\n\nప్రతిరోజూ తాజా మార్కెట్ రేట్ల కోసం మా యాప్‌ని డౌన్‌లోడ్ చేసుకోండి!`);
       window.open('https://api.whatsapp.com/send?text=' + msg, '_blank');
     }
 
