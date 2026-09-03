@@ -3,34 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AP Poultry Rates</title>
+  <title>AP Daily Poultry Rates</title>
+  <link rel="manifest" href="manifest.json">
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 20px; }
-    .card { background: #1e293b; border-radius: 14px; padding: 20px; max-width: 420px; margin: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-    h2 { text-align: center; color: #38bdf8; margin-top: 0; }
-    .date { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 20px; }
-    .row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #334155; font-size: 17px; }
-    .price { color: #4ade80; font-weight: bold; font-size: 18px; }
-    .share-btn { width: 100%; background: #22c55e; color: white; border: none; padding: 14px; border-radius: 10px; font-weight: bold; font-size: 16px; margin-top: 20px; cursor: pointer; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 16px; }
+    .container { max-width: 440px; margin: auto; }
+    .header { text-align: center; margin-bottom: 20px; }
+    .header h1 { font-size: 22px; color: #38bdf8; margin: 0 0 4px 0; }
+    .header p { color: #94a3b8; font-size: 14px; margin: 0; }
+    .card { background: #1e293b; border-radius: 16px; padding: 18px; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .select-box { width: 100%; padding: 14px; background: #334155; color: white; border: 1px solid #475569; border-radius: 12px; font-size: 16px; outline: none; margin-bottom: 12px; }
+    .rate-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #334155; font-size: 17px; }
+    .rate-item:last-child { border-bottom: none; }
+    .price { color: #4ade80; font-weight: bold; font-size: 20px; }
+    .btn { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding: 15px; border-radius: 12px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; }
+    .btn-wa { background: #22c55e; color: white; }
+    .btn-admin { background: transparent; color: #64748b; font-size: 13px; margin-top: 10px; border: 1px dashed #475569; }
+    .history-title { font-size: 16px; color: #38bdf8; margin-top: 0; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 8px 4px; text-align: left; border-bottom: 1px solid #334155; }
+    th { color: #94a3b8; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h2>🐔 AP డైలీ పౌల్ట్రీ రేట్లు</h2>
-    <div class="date">తేదీ: 03-09-2026</div>
+  <div class="container">
+    <div class="header">
+      <h1>🐔 AP పౌల్ట్రీ తాజా రేట్లు</h1>
+      <p id="todayDate">తేదీ: 03-09-2026</p>
+    </div>
 
-    <div class="row"><span>గుడ్డు (100 Eggs):</span><span class="price">₹480</span></div>
-    <div class="row"><span>సింగిల్ గుడ్డు (Piece):</span><span class="price">₹4.80</span></div>
-    <div class="row"><span>లైవ్ బర్డ్ (Live 1kg):</span><span class="price">₹110</span></div>
-    <div class="row"><span>స్కిన్‌లెస్ (Skinless 1kg):</span><span class="price">₹210</span></div>
+    <div class="card">
+      <select class="select-box" id="district" onchange="updateView()">
+        <option value="guntur">గుంటూరు (Guntur)</option>
+        <option value="vijayawada">విజయవాడ (Vijayawada)</option>
+        <option value="godavari">గోదావరి (Godavari)</option>
+      </select>
 
-    <button class="share-btn" onclick="shareRates()">📲 వాట్సాప్‌లో షేర్ చేయండి</button>
+      <div class="rate-item">
+        <span>🥚 గుడ్డు (100 Eggs)</span>
+        <span class="price" id="egg100">₹480</span>
+      </div>
+      <div class="rate-item">
+        <span>🥚 సింగిల్ గుడ్డు (Piece)</span>
+        <span class="price" id="eggPiece">₹4.80</span>
+      </div>
+      <div class="rate-item">
+        <span>🍗 లైవ్ బర్డ్ (1 Kg)</span>
+        <span class="price" id="liveBird">₹110</span>
+      </div>
+      <div class="rate-item">
+        <span>🥩 స్కిన్‌లెస్ చికెన్ (1 Kg)</span>
+        <span class="price" id="skinless">₹210</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="history-title">📊 గత 7 రోజుల సగటు ధరలు</h3>
+      <table>
+        <thead><tr><th>తేదీ</th><th>100 గుడ్లు</th><th>లైవ్ బర్డ్</th></tr></thead>
+        <tbody>
+          <tr><td>03-09</td><td>₹480</td><td>₹110</td></tr>
+          <tr><td>02-09</td><td>₹475</td><td>₹108</td></tr>
+          <tr><td>01-09</td><td>₹470</td><td>₹105</td></tr>
+          <tr><td>31-08</td><td>₹470</td><td>₹105</td></tr>
+          <tr><td>30-08</td><td>₹465</td><td>₹102</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="btn btn-wa" onclick="shareWa()">📲 వాట్సాప్‌లో షేర్ చేయండి</button>
+    <button class="btn btn-admin" onclick="adminEdit()">🔒 అడ్మిన్ రేట్ ఎడిటర్</button>
   </div>
 
   <script>
-    function shareRates() {
-      const text = encodeURIComponent("🐔 AP డైలీ పౌల్ట్రీ రేట్లు:\n\n🥚 100 Eggs: ₹480\n🍗 Live 1kg: ₹110\n🥩 Skinless 1kg: ₹210\n\nతాజా రేట్ల కోసం లింక్ చూడండి!");
-      window.open("https://api.whatsapp.com/send?text=" + text, "_blank");
+    const rates = {
+      guntur: { egg: 480, live: 110, skin: 210 },
+      vijayawada: { egg: 485, live: 112, skin: 215 },
+      godavari: { egg: 475, live: 108, skin: 205 }
+    };
+
+    function updateView() {
+      const d = rates[document.getElementById('district').value];
+      document.getElementById('egg100').innerText = '₹' + d.egg;
+      document.getElementById('eggPiece').innerText = '₹' + (d.egg / 100).toFixed(2);
+      document.getElementById('liveBird').innerText = '₹' + d.live;
+      document.getElementById('skinless').innerText = '₹' + d.skin;
+    }
+
+    function shareWa() {
+      const dName = document.getElementById('district').selectedOptions[0].text;
+      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ రేట్లు (${dName})\n\n🥚 100 గుడ్లు: ${document.getElementById('egg100').innerText}\n🍗 లైవ్ బర్డ్ (1kg): ${document.getElementById('liveBird').innerText}\n🥩 స్కిన్‌లెస్ (1kg): ${document.getElementById('skinless').innerText}\n\nతాజా రేట్ల కోసం యాప్ చూడండి!`);
+      window.open('https://api.whatsapp.com/send?text=' + msg, '_blank');
+    }
+
+    function adminEdit() {
+      const pin = prompt('అడ్మిన్ పిన్ ఎంటర్ చేయండి:');
+      if (pin === '1234') {
+        const cur = rates[document.getElementById('district').value];
+        const newEgg = prompt('100 గుడ్ల కొత్త ధర:', cur.egg);
+        const newLive = prompt('లైవ్ బర్డ్ కొత్త ధర:', cur.live);
+        if (newEgg) cur.egg = Number(newEgg);
+        if (newLive) cur.live = Number(newLive);
+        cur.skin = cur.live + 100;
+        updateView();
+        alert('ధరలు మారాయి!');
+      } else if (pin !== null) {
+        alert('తప్పుడు పిన్!');
+      }
     }
   </script>
 </body>
