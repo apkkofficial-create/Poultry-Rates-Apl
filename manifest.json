@@ -1,14 +1,15 @@
 {
-  "name": "AP Daily Poultry Rates",
-  "short_name": "AP Poultry",
-  "description": "ఆంధ్రప్రదేశ్ రోజువారీ చికెన్ మరియు గుడ్డు తాజా ధరలు",
-  "id": "/Poultry-Rates-Api/",
-  "start_url": "/Poultry-Rates-Api/index.html",
-  "scope": "/Poultry-Rates-Api/",
-  "display": "standalone",
   "background_color": "#0b1329",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "apkkofficial-create.github",
+  "orientation": "any",
+  "scope": "/Poultry-Rates-Api/",
+  "short_name": "apkkofficial-create.github",
+  "start_url": "/Poultry-Rates-Api/",
   "theme_color": "#0b1329",
-  "orientation": "portrait",
+  "id": "/Poultry-Rates-Api/",
+  "description": "ఆంధ్రప్రదేశ్ రోజువారీ చికెన్ మరియు గుడ్డు తాజా ధరలు",
   "icons": [
     {
       "src": "/Poultry-Rates-Api/icon.png",
