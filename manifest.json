@@ -1,12 +1,12 @@
 {
-  "background_color": "#0b1329",
+  "background_color": "#ffffff",
   "dir": "ltr",
   "display": "standalone",
-  "name": "AP Poultry Rates",
-  "orientation": "portrait",
-  "scope": "/Poultry-Rates-Apl/",
-  "short_name": "Poultry Rates",
-  "start_url": "/Poultry-Rates-Apl/",
-  "theme_color": "#0b1329",
-  "description": "Daily live broiler chicken and egg rates across AP"
+  "name": "apkkofficial.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "apkkofficial.github",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "description": "ApDailyPoultryRates"
 }
