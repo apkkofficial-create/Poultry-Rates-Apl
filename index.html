@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon.png">
 
-  <!-- OneSignal Push Notification Script -->
+  <!-- OneSignal Push Notification Setup -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -36,6 +36,44 @@
     .btn { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; }
     .btn-wa { background: #22c55e; color: white; box-shadow: 0 4px 14px rgba(34,197,94,0.4); }
     .status-bar { text-align: center; font-size: 12px; color: #38bdf8; margin-top: 10px; font-weight: 500; }
+
+    /* స్క్రోలింగ్ అడ్వర్టైజ్మెంట్ స్టైల్స్ */
+    .ad-ticker-bar {
+      background: #1e293b;
+      border: 1px solid #facc15;
+      border-radius: 12px;
+      overflow: hidden;
+      white-space: nowrap;
+      margin-top: 16px;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+    }
+    .ad-badge {
+      background: #facc15;
+      color: #000;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin: 0 10px;
+      flex-shrink: 0;
+    }
+    .ad-text-wrap {
+      display: inline-block;
+      white-space: nowrap;
+      animation: ticker 15s linear infinite;
+    }
+    .ad-text-wrap a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body>
@@ -108,6 +146,15 @@
     </div>
 
     <button class="btn btn-wa" onclick="shareWa()">📲 వాట్సాప్‌లో షేర్ చేయండి</button>
+
+    <!-- ప్రకటన స్క్రోలర్ కంటెయినర్ -->
+    <div id="adContainer" class="ad-ticker-bar" style="display: none;">
+      <span class="ad-badge">AD</span>
+      <div class="ad-text-wrap">
+        <a id="adLink" href="#" target="_blank"></a>
+      </div>
+    </div>
+
     <div class="status-bar" id="updateStatus">తాజా ధరలు లోడ్ చేయబడుతున్నాయి...</div>
   </div>
 
@@ -122,6 +169,15 @@
         if (liveData.egg_time) document.getElementById('displayEggTime').innerText = liveData.egg_time;
         if (liveData.chicken_time) document.getElementById('displayChickenTime').innerText = liveData.chicken_time;
         if (liveData.updated_status) document.getElementById('updateStatus').innerText = '✅ ' + liveData.updated_status;
+
+        // rates.json నుండి అడ్వర్టైజ్మెంట్ టెక్స్ట్ & లింక్ లోడ్ చేయడం
+        if (liveData.ad_scroller && liveData.ad_scroller.enabled) {
+          const adBox = document.getElementById('adContainer');
+          const adLink = document.getElementById('adLink');
+          adLink.innerText = liveData.ad_scroller.text;
+          adLink.href = liveData.ad_scroller.link;
+          adBox.style.display = 'flex';
+        }
 
         renderRates();
       } catch (err) {
@@ -162,12 +218,12 @@
       window.open('https://api.whatsapp.com/send?text=' + msg, '_blank');
     }
 
-    // Service Worker రిజిస్ట్రేషన్
+    // Service Worker గా OneSignalSDKWorker ను రిజిస్టర్ చేయడం
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./OneSignalSDKWorker.js')
-          .then((reg) => console.log('Service Worker Ready'))
-          .catch((err) => console.log('SW Registration Error:', err));
+          .then((reg) => console.log('Service Worker Active'))
+          .catch((err) => console.log('SW Error:', err));
       });
     }
 
