@@ -7,7 +7,13 @@
   <link rel="manifest" href="manifest.json">
   <style>
     * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b1329; color: #fff; margin: 0; padding: 16px; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      background: #0b1329; 
+      color: #fff; 
+      margin: 0; 
+      padding: 16px 16px 65px 16px; 
+    }
     .container { max-width: 450px; margin: auto; }
     .header { text-align: center; margin-bottom: 14px; }
     .header h1 { font-size: 20px; color: #38bdf8; margin: 0 0 6px 0; font-weight: 800; }
@@ -22,6 +28,33 @@
     .btn { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; }
     .btn-wa { background: #22c55e; color: white; box-shadow: 0 4px 14px rgba(34,197,94,0.4); }
     .status-bar { text-align: center; font-size: 12px; color: #38bdf8; margin-top: 10px; font-weight: 500; }
+
+    /* కింద స్క్రోల్ అయ్యే ప్రకటనల బార్ */
+    .ticker-wrap {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #0f172a;
+      border-top: 2px solid #facc15;
+      color: #fff;
+      padding: 9px 0;
+      font-size: 13px;
+      overflow: hidden;
+      white-space: nowrap;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
+      z-index: 9999;
+    }
+    .ticker-move {
+      display: inline-block;
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: tickerAnimation 25s linear infinite;
+    }
+    @keyframes tickerAnimation {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-100%, 0, 0); }
+    }
   </style>
 </head>
 <body>
@@ -97,17 +130,31 @@
     <div class="status-bar" id="updateStatus">తాజా ధరలు లోడ్ చేయబడుతున్నాయి...</div>
   </div>
 
+  <!-- స్క్రీన్ కింద స్క్రోలింగ్ బ్యానర్ -->
+  <div class="ticker-wrap">
+    <div class="ticker-move" id="tickerText">
+      తాజా సమాచారం లోడ్ అవుతోంది...
+    </div>
+  </div>
+
   <script>
     let liveData = null;
 
     async function loadLiveRates() {
       try {
-        const response = await fetch('rates.json?v=' + new Date().getTime());
+        const response = await fetch('rates.json?nocache=' + Date.now(), {
+          cache: "no-store",
+          headers: { 'Cache-Control': 'no-cache' }
+        });
         liveData = await response.json();
         
         if (liveData.egg_time) document.getElementById('displayEggTime').innerText = liveData.egg_time;
         if (liveData.chicken_time) document.getElementById('displayChickenTime').innerText = liveData.chicken_time;
         if (liveData.updated_status) document.getElementById('updateStatus').innerText = '✅ ' + liveData.updated_status;
+
+        if (liveData.ad_text) {
+          document.getElementById('tickerText').innerText = liveData.ad_text;
+        }
 
         renderRates();
       } catch (err) {
