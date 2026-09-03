@@ -77,7 +77,7 @@
 
       <div class="rate-item">
         <span>🥚 1 గుడ్డు (Egg)</span>
-        <span class="price" id="eggPiece">లోడ్ అవుతోంది...</span>
+        <span class="price" id="eggOne">లోడ్ అవుతోంది...</span>
       </div>
       <div class="rate-item">
         <span>🥚 100 గుడ్లు (Eggs)</span>
@@ -123,13 +123,12 @@
       const zoneKey = selectedOpt.getAttribute('data-zone');
       const zone = liveData.zones[zoneKey] || liveData.zones['vja'];
 
-      // 1 గుడ్డు రేటు ఆధారం గా 100 గుడ్ల రేటు ఆటోమేటిక్ లెక్కింపు
-      const piecePrice = Number(zone.egg_piece) || 0;
-      const calculatedEgg100 = Math.round(piecePrice * 100);
+      const singleRate = Number(zone.egg_price) || 0;
+      const calculatedEgg100 = Math.round(singleRate * 100);
       const livePrice = Number(zone.live) || 0;
       const skinPrice = livePrice + 100;
 
-      document.getElementById('eggPiece').innerText = '₹' + piecePrice.toFixed(2);
+      document.getElementById('eggOne').innerText = '₹' + singleRate.toFixed(2);
       document.getElementById('egg100').innerText = '₹' + calculatedEgg100;
       document.getElementById('liveBird').innerText = '₹' + livePrice;
       document.getElementById('skinless').innerText = '₹' + skinPrice;
@@ -137,14 +136,14 @@
 
     function shareWa() {
       const dName = document.getElementById('district').selectedOptions[0].text;
-      const eggP = document.getElementById('eggPiece').innerText;
+      const egg1 = document.getElementById('eggOne').innerText;
       const egg100 = document.getElementById('egg100').innerText;
       const live = document.getElementById('liveBird').innerText;
       const skin = document.getElementById('skinless').innerText;
       const eggT = document.getElementById('displayEggTime').innerText;
       const chkT = document.getElementById('displayChickenTime').innerText;
 
-      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 గుడ్డు రేట్ (${eggT}):\n▪️ 1 గుడ్డు: ${eggP}\n▪️ 100 గుడ్లు: ${egg100}\n\n🍗 చికెన్ రేట్ (${chkT}):\n▪️ లైవ్ బర్డ్ 1kg: ${live}\n▪️ స్కిన్‌లెస్ చికెన్: ${skin}\n\nప్రతిరోజూ తాజా మార్కెట్ రేట్ల కోసం మా యాప్‌ని డౌన్‌లోడ్ చేసుకోండి!`);
+      const msg = encodeURIComponent(`🐔 AP డైలీ పౌల్ట్రీ తాజా రేట్లు\n📍 జిల్లా: ${dName}\n\n🥚 గుడ్డు రేట్ (${eggT}):\n▪️ 1 గుడ్డు: ${egg1}\n▪️ 100 గుడ్లు: ${egg100}\n\n🍗 చికెన్ రేట్ (${chkT}):\n▪️ లైవ్ బర్డ్ 1kg: ${live}\n▪️ స్కిన్‌లెస్ చికెన్: ${skin}\n\nప్రతిరోజూ తాజా మార్కెట్ రేట్ల కోసం మా యాప్‌ని డౌన్‌లోడ్ చేసుకోండి!`);
       window.open('https://api.whatsapp.com/send?text=' + msg, '_blank');
     }
 
