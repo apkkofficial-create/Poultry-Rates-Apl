@@ -1,32 +1,30 @@
 {
-  "egg_time": "ఉదయం 08:30 AM",
-  "chicken_time": "మధ్యాహ్నం 02:45 PM",
-  "updated_status": "నేటి ధరలు విజయవంతంగా అప్‌డేట్ చేయబడ్డాయి",
-  "ad_scroller": {
-    "enabled": true,
-    "text": "📢 పౌల్ట్రీ ఫార్మింగ్ పరికరాలు, ఫీడ్ & చిక్స్ హోల్‌సేల్ ధరల కొరకు సంప్రదించండి: 9876543210",
-    "link": "https://wa.me/919876543210"
-  },
+  "updated_time": "ఈరోజు మధ్యాహ్నం 12:00 PM",
+  "ticker_text": "📢 ఆంధ్రప్రదేశ్ పౌల్ట్రీ తాజా సమాచారం: 4 జోన్ల ఆధారంగా అన్ని జిల్లాల ధరలు అప్‌డేట్ చేయబడ్డాయి.",
   "zones": {
-    "vja": {
-      "egg_piece": 5.25,
-      "live": 135,
-      "skinless": 230
+    "coastal": {
+      "name": "కోస్తా జోన్ (Coastal Zone)",
+      "egg_piece": 4.80,
+      "farm_rate": 112,
+      "retail_rate": 230
     },
     "godavari": {
-      "egg_piece": 5.20,
-      "live": 132,
-      "skinless": 225
+      "name": "గోదావరి జోన్ (Godavari Zone)",
+      "egg_piece": 4.75,
+      "farm_rate": 110,
+      "retail_rate": 225
     },
-    "vizag": {
-      "egg_piece": 5.30,
-      "live": 138,
-      "skinless": 235
+    "north_coastal": {
+      "name": "ఉత్తరాంధ్ర జోన్ (North Coastal Zone)",
+      "egg_piece": 4.90,
+      "farm_rate": 115,
+      "retail_rate": 235
     },
     "rayalaseema": {
-      "egg_piece": 5.40,
-      "live": 140,
-      "skinless": 240
+      "name": "రాయలసీమ జోన్ (Rayalaseema Zone)",
+      "egg_piece": 4.70,
+      "farm_rate": 114,
+      "retail_rate": 230
     }
   }
 }
