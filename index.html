@@ -3,230 +3,366 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AP Poultry Rates</title>
-
-  <!-- PWA Settings & Theme -->
+  <title>AP పౌల్ట్రీ తాజా రేట్లు - AP Poultry Rates</title>
   <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#2e7d32">
-  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#0b121c">
 
-  <!-- OneSignal Push Notification SDK -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
       await OneSignal.init({
-        appId: "df96df6e-2691-4c55-b97c-592aa03454f1"
+        appId: "c6a22f3e-4b68-45a9-8356-9ec1dcfecb19",
       });
+      // యాప్ ఓపెన్ చేయగానే నోటిఫికేషన్ పర్మిషన్ అడుగుతుంది
+      OneSignal.Notifications.requestPermission();
     });
   </script>
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background-color: #f4f6f8; color: #333; padding-bottom: 75px; }
-    
-    header { background-color: #2e7d32; color: #fff; text-align: center; padding: 18px 10px; }
-    header h1 { font-size: 20px; font-weight: 700; }
-    #update-time { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #0b121c; color: #ffffff; display: flex; justify-content: center; padding: 16px 14px 75px; }
+    .wrapper { width: 100%; max-width: 420px; }
 
-    .container { padding: 15px; max-width: 600px; margin: auto; }
-    .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .card-title { font-size: 16px; font-weight: 700; color: #2e7d32; margin-bottom: 12px; border-bottom: 2px solid #e8f5e9; padding-bottom: 6px; }
+    /* Header */
+    .header { text-align: center; margin-bottom: 14px; }
+    .header h1 { color: #00b4d8; font-size: 1.55rem; font-weight: 800; margin-bottom: 4px; }
+    .date-badge { color: #8899a6; font-size: 0.95rem; font-weight: 600; margin-bottom: 12px; }
 
-    table { width: 100%; border-collapse: collapse; margin-top: 5px; }
-    th, td { text-align: left; padding: 10px 6px; font-size: 13px; }
-    th { color: #555; font-size: 12px; background: #fafafa; border-bottom: 1px solid #ddd; }
-    tr:not(:last-child) td { border-bottom: 1px solid #eee; }
-    
-    .rate { font-weight: 700; color: #d32f2f; text-align: right; }
-    .rate-center { font-weight: 700; color: #d32f2f; text-align: center; }
-    .refresh-btn { width: 100%; background: #2e7d32; color: #fff; border: none; padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+    /* District Selection Bar */
+    .district-bar {
+      background-color: #172331;
+      border: 1px solid #243549;
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .current-dist { font-size: 1rem; font-weight: 700; color: #00e676; display: flex; align-items: center; gap: 6px; }
+    .select-dropdown {
+      background-color: #243549;
+      color: #ffffff;
+      border: 1px solid #364d68;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+    }
+    .select-dropdown option { background-color: #172331; color: #ffffff; }
 
-    /* కింద స్క్రోల్ అయ్యే ప్రకటన బార్ */
-    .bottom-ticker-wrap {
+    /* Cards with Images */
+    .item-card { 
+      background-color: #172331; 
+      border-radius: 18px; 
+      padding: 16px; 
+      margin-bottom: 16px; 
+      border: 1px solid #223246; 
+      text-align: center; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+    }
+    .item-image { 
+      width: 85px; 
+      height: 85px; 
+      object-fit: contain; 
+      margin: 0 auto 10px; 
+      display: block; 
+    }
+    .item-title-te { font-size: 1.15rem; font-weight: 700; color: #eceff1; margin-bottom: 2px; }
+    .item-title-en { font-size: 0.85rem; font-weight: 500; color: #90a4ae; margin-bottom: 12px; }
+
+    /* Price Displays */
+    .price-box { 
+      background-color: #202f42; 
+      border-radius: 12px; 
+      padding: 10px 8px; 
+      display: flex; 
+      justify-content: space-around; 
+      align-items: center; 
+    }
+    .price-sub { text-align: center; }
+    .price-label { font-size: 0.8rem; color: #b0bec5; margin-bottom: 2px; }
+    .price-val { font-size: 1.4rem; font-weight: 800; color: #00e676; }
+    .single-price { font-size: 1.65rem; font-weight: 800; color: #00e676; }
+
+    /* 7 Days History Table Card */
+    .history-card { 
+      background-color: #172331; 
+      border-radius: 18px; 
+      padding: 16px; 
+      margin-bottom: 20px; 
+      border: 1px solid #223246; 
+    }
+    .history-header { color: #00b4d8; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { color: #8899a6; font-size: 0.85rem; padding: 8px 4px; border-bottom: 1px solid #25374b; font-weight: 600; }
+    td { padding: 9px 4px; font-size: 0.95rem; color: #d0d7de; border-bottom: 1px solid #1c2b3c; }
+    tr:last-child td { border-bottom: none; }
+
+    /* WhatsApp Button */
+    .btn-whatsapp { 
+      width: 100%; 
+      background-color: #00c853; 
+      color: #ffffff; 
+      border: none; 
+      padding: 16px; 
+      border-radius: 14px; 
+      font-size: 1.1rem; 
+      font-weight: 800; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 10px; 
+      cursor: pointer; 
+      box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4); 
+      margin-bottom: 10px;
+    }
+
+    /* Bottom Sticky Scrolling Ad Bar */
+    .bottom-ad-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #212121;
-      color: #ffeb3b;
-      padding: 10px 0;
+      background-color: #131f2d;
+      border-top: 2px solid #00b4d8;
+      padding: 9px 0;
       overflow: hidden;
       white-space: nowrap;
-      border-top: 2px solid #fbc02d;
-      z-index: 1000;
+      box-shadow: 0 -3px 12px rgba(0,0,0,0.6);
+      z-index: 999;
     }
-    .bottom-ticker {
+    .ad-label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #00b4d8;
+      color: #0b121c;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+    }
+    .ad-ticker-track {
       display: inline-block;
       padding-left: 100%;
-      animation: bottomTicker 14s linear infinite;
-      font-size: 14px;
-      font-weight: bold;
+      animation: ticker 16s linear infinite;
+      color: #ffd54f;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
-    @keyframes bottomTicker {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-100%, 0, 0); }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
   </style>
-
-  <!-- Service Worker Registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./pwabuilder-sw.js');
-      });
-    }
-  </script>
 </head>
 <body>
 
-  <header>
-    <h1>🐔 AP డైలీ పౌల్ట్రీ రేట్లు</h1>
-    <p id="update-time">ధరలు లోడ్ అవుతున్నాయి...</p>
-  </header>
+  <div class="wrapper">
+    <div class="header">
+      <h1>🐔 AP పౌల్ట్రీ తాజా రేట్లు</h1>
+      <div class="date-badge" id="currentDate">తేదీ: 04-09-2026</div>
+    </div>
 
-  <div class="container">
-    <!-- గుడ్ల ధరలు -->
-    <div class="card">
-      <div class="card-title">🥚 AP జిల్లాల గుడ్ల ధరలు (1 Pc & 100 Pcs)</div>
+    <div class="district-bar">
+      <div class="current-dist">📍 <span id="displayDistrict">గుంటూరు (Guntur)</span></div>
+      <select id="districtSelect" class="select-dropdown" onchange="onManualDistrictChange()">
+        <option value="guntur" selected>గుంటూరు (Guntur)</option>
+        <option value="vijayawada">విజయవాడ / NTR</option>
+        <option value="krishna">కృష్ణా (Krishna)</option>
+        <option value="bapatla">బాపట్ల (Bapatla)</option>
+        <option value="palnadu">పల్నాడు (Palnadu)</option>
+        <option value="prakasam">ప్రకాశం - ఒంగోలు</option>
+        <option value="nellore">నెల్లూరు (Nellore)</option>
+        <option value="godavari">గోదావరి (Godavari)</option>
+        <option value="visakhapatnam">విశాఖపట్నం (Vizag)</option>
+        <option value="tirupati">తిరుపతి (Tirupati)</option>
+        <option value="kadapa">కడప (Kadapa)</option>
+        <option value="kurnool">కర్నూలు (Kurnool)</option>
+        <option value="anantapur">అనంతపురం (Anantapur)</option>
+      </select>
+    </div>
+
+    <div class="item-card">
+      <img class="item-image" src="https://img.icons8.com/color/96/egg.png" alt="గుడ్డు ఫోటో">
+      <div class="item-title-te">🥚 గుడ్డు ధర వివరాలు</div>
+      <div class="item-title-en">Egg Rates (1 Egg & 100 Eggs)</div>
+      
+      <div class="price-box">
+        <div class="price-sub">
+          <div class="price-label">గుడ్డు ధర (1 Egg)</div>
+          <div class="price-val" id="eggSingle">₹4.75</div>
+        </div>
+        <div style="width: 1px; height: 35px; background: #37474f;"></div>
+        <div class="price-sub">
+          <div class="price-label">100 గుడ్ల ధర (100 Eggs)</div>
+          <div class="price-val" id="eggHundred">₹475</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <img class="item-image" src="https://img.icons8.com/color/96/chicken.png" alt="లైవ్ చికెన్ ఫోటో">
+      <div class="item-title-te">🐔 లైవ్ చికెన్ ధర (ఫామ్ రేట్)</div>
+      <div class="item-title-en">Live Chicken Price (1 Kg)</div>
+      <div class="single-price" id="farmPrice">₹110</div>
+    </div>
+
+    <div class="item-card">
+      <img class="item-image" src="https://img.icons8.com/color/96/meat.png" alt="స్కిన్‌లెస్ చికెన్ ఫోటో">
+      <div class="item-title-te">🍗 స్కిన్‌లెస్ చికెన్ ధర (మార్కెట్ రేట్)</div>
+      <div class="item-title-en">Skinless Chicken Price (1 Kg)</div>
+      <div class="single-price" id="retailPrice">₹210</div>
+    </div>
+
+    <div class="history-card">
+      <div class="history-header">📊 గత 7 రోజుల సగటు ధరలు (7 Days History)</div>
       <table>
         <thead>
           <tr>
-            <th>జిల్లా (District)</th>
-            <th style="text-align: center;">1 గుడ్డు</th>
-            <th style="text-align: right;">100 గుడ్లు</th>
+            <th>తేదీ (Date)</th>
+            <th>100 గుడ్లు</th>
+            <th>లైవ్ బర్డ్ (1kg)</th>
           </tr>
         </thead>
-        <tbody id="egg-districts-body">
-          <tr><td colspan="3" style="text-align:center;">లోడ్ అవుతోంది...</td></tr>
+        <tbody id="historyBody">
+          <tr><td>03-09-2026</td><td>₹480</td><td>₹110</td></tr>
+          <tr><td>02-09-2026</td><td>₹475</td><td>₹108</td></tr>
+          <tr><td>01-09-2026</td><td>₹470</td><td>₹105</td></tr>
+          <tr><td>31-08-2026</td><td>₹470</td><td>₹105</td></tr>
+          <tr><td>30-08-2026</td><td>₹465</td><td>₹102</td></tr>
+          <tr><td>29-08-2026</td><td>₹465</td><td>₹100</td></tr>
+          <tr><td>28-08-2026</td><td>₹460</td><td>₹100</td></tr>
         </tbody>
       </table>
     </div>
 
-    <!-- బ్రాయిలర్ కోడి ధరలు -->
-    <div class="card">
-      <div class="card-title">🍗 AP జిల్లాల బ్రాయిలర్ రేట్లు (Broiler Rates / Kg)</div>
-      <table>
-        <thead>
-          <tr>
-            <th>జిల్లా (District)</th>
-            <th style="text-align: center;">ఫామ్ గేట్</th>
-            <th style="text-align: right;">స్కిన్‌లెస్</th>
-          </tr>
-        </thead>
-        <tbody id="broiler-districts-body">
-          <tr><td colspan="3" style="text-align:center;">లోడ్ అవుతోంది...</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <button class="refresh-btn" onclick="fetchRates()">ధరలను రీఫ్రెష్ చేయండి</button>
+    <button class="btn-whatsapp" onclick="shareRatesOnWhatsApp()">
+      📲 వాట్సాప్‌లో షేర్ చేయండి (Share)
+    </button>
   </div>
 
-  <!-- స్క్రీన్ కింద తిరిగే ప్రకటన లేబుల్ -->
-  <div class="bottom-ticker-wrap">
-    <div class="bottom-ticker" id="ticker-text">📢 ఆంధ్రప్రదేశ్ పౌల్ట్రీ తాజా సమాచారం: ప్రతిరోజూ ధరలు అప్‌డేట్ అవుతాయి.</div>
+  <div class="bottom-ad-bar">
+    <div class="ad-label">AD / ప్రకటన</div>
+    <div class="ad-ticker-track">
+      📢 పౌల్ట్రీ ఫీడ్, మెడిసిన్స్ మరియు షాపుల ప్రకటనల కోసం సంప్రదించండి: 98765XXXXX | నాణ్యమైన పౌల్ట్రీ ఉత్పత్తులు లభించును 🐔
+    </div>
   </div>
 
   <script>
-    // ఆంధ్రప్రదేశ్ అన్ని జిల్లాల 4 జోన్ల మ్యాపింగ్
-    const districtMapping = [
-      // కోస్తా జోన్
-      { name: "గుంటూరు (Guntur)", zoneKey: "coastal" },
-      { name: "విజయవాడ / NTR (Vijayawada)", zoneKey: "coastal" },
-      { name: "కృష్ణా - మచిలీపట్నం (Krishna)", zoneKey: "coastal" },
-      { name: "బాపట్ల (Bapatla)", zoneKey: "coastal" },
-      { name: "పల్నాడు - నరసరావుపేట (Palnadu)", zoneKey: "coastal" },
-      { name: "ప్రకాశం - ఒంగోలు (Prakasam)", zoneKey: "coastal" },
-      { name: "నెల్లూరు (Nellore)", zoneKey: "coastal" },
+    let poultryData = null;
 
-      // గోదావరి జోన్
-      { name: "పశ్చిమ గోదావరి - భీమవరం (W.Godavari)", zoneKey: "godavari" },
-      { name: "తూర్పు గోదావరి - రాజమండ్రి (E.Godavari)", zoneKey: "godavari" },
-      { name: "కాకినాడ (Kakinada)", zoneKey: "godavari" },
-      { name: "ఏలూరు (Eluru)", zoneKey: "godavari" },
-      { name: "కోనసీమ (Dr. BR Ambedkar Konaseema)", zoneKey: "godavari" },
-
-      // ఉత్తరాంధ్ర జోన్
-      { name: "విశాఖపట్నం (Visakhapatnam)", zoneKey: "north_coastal" },
-      { name: "విజయనగరం (Vizianagaram)", zoneKey: "north_coastal" },
-      { name: "శ్రీకాకుళం (Srikakulam)", zoneKey: "north_coastal" },
-      { name: "అనకాపల్లి (Anakapalli)", zoneKey: "north_coastal" },
-
-      // రాయలసీమ జోన్
-      { name: "చిత్తూరు (Chittoor)", zoneKey: "rayalaseema" },
-      { name: "తిరుపతి (Tirupati)", zoneKey: "rayalaseema" },
-      { name: "కడప - YSR (Kadapa)", zoneKey: "rayalaseema" },
-      { name: "అనంతపురం (Anantapur)", zoneKey: "rayalaseema" },
-      { name: "కర్నూలు (Kurnool)", zoneKey: "rayalaseema" },
-      { name: "నంద్యాల (Nandyal)", zoneKey: "rayalaseema" },
-      { name: "శ్రీ సత్యసాయి (Sri Sathya Sai)", zoneKey: "rayalaseema" },
-      { name: "అన్నమయ్య - రాయచోటి (Annamayya)", zoneKey: "rayalaseema" }
-    ];
-
-    // ఒకవేళ నెట్‌వర్క్ లేదా ఫైల్ సమస్య వస్తే యాప్ ఖాళీ కాకుండా ఉండే డీఫాల్ట్ డేటా
-    const defaultData = {
-      updated_time: "ఈరోజు తాజా రేట్లు",
-      ticker_text: "📢 ఆంధ్రప్రదేశ్ పౌల్ట్రీ తాజా సమాచారం: 4 జోన్ల ఆధారంగా అన్ని జిల్లాల ధరలు ఇక్కడ చూడవచ్చు.",
-      zones: {
-        coastal: { egg_piece: 4.80, farm_rate: 112, retail_rate: 230 },
-        godavari: { egg_piece: 4.75, farm_rate: 110, retail_rate: 225 },
-        north_coastal: { egg_piece: 4.90, farm_rate: 115, retail_rate: 235 },
-        rayalaseema: { egg_piece: 4.70, farm_rate: 114, retail_rate: 230 }
-      }
+    const zoneMap = {
+      guntur: "coastal", vijayawada: "coastal", krishna: "coastal", bapatla: "coastal",
+      palnadu: "coastal", prakasam: "coastal", nellore: "coastal",
+      godavari: "godavari", visakhapatnam: "uttarandhra",
+      tirupati: "rayalaseema", kadapa: "rayalaseema", kurnool: "rayalaseema", anantapur: "rayalaseema"
     };
 
-    function renderDisplay(data) {
-      if (data.updated_time) {
-        document.getElementById('update-time').innerText = 'చివరి అప్‌డేట్: ' + data.updated_time;
-      }
-      if (data.ticker_text) {
-        document.getElementById('ticker-text').innerText = data.ticker_text;
-      }
-
-      let eggHtml = '';
-      let broilerHtml = '';
-
-      districtMapping.forEach(dist => {
-        const zoneInfo = data.zones ? data.zones[dist.zoneKey] : null;
-        if (zoneInfo) {
-          const singleRate = Number(zoneInfo.egg_piece);
-          const bulkRate = Math.round(singleRate * 100);
-
-          eggHtml += `<tr>
-            <td>${dist.name}</td>
-            <td class="rate-center">₹ ${singleRate.toFixed(2)}</td>
-            <td class="rate">₹ ${bulkRate}</td>
-          </tr>`;
-
-          broilerHtml += `<tr>
-            <td>${dist.name}</td>
-            <td class="rate-center">₹ ${zoneInfo.farm_rate}</td>
-            <td class="rate">₹ ${zoneInfo.retail_rate}</td>
-          </tr>`;
-        }
-      });
-
-      document.getElementById('egg-districts-body').innerHTML = eggHtml;
-      document.getElementById('broiler-districts-body').innerHTML = broilerHtml;
-    }
-
-    async function fetchRates() {
+    async function initApp() {
       try {
-        const res = await fetch('./rates.json?v=' + Date.now());
-        if (!res.ok) {
-          throw new Error('rates.json not found');
+        const res = await fetch('./rates.json?t=' + Date.now());
+        poultryData = await res.json();
+        if (poultryData.date) {
+          document.getElementById('currentDate').innerText = 'తేదీ: ' + poultryData.date;
         }
-        const data = await res.json();
-        renderDisplay(data);
-      } catch (err) {
-        // rates.json లోడ్ కాకపోయినా ఎర్రర్ లేకుండా డీఫాల్ట్ రేట్లు చూపిస్తుంది
-        renderDisplay(defaultData);
+      } catch (e) {
+        console.error("డేటా రాలేదు:", e);
+      }
+
+      // గతంలో సేవ్ అయిన జిల్లా ఉంటే లోడ్ అవుతుంది
+      const savedDistrict = localStorage.getItem('user_district');
+      if (savedDistrict) {
+        document.getElementById('districtSelect').value = savedDistrict;
+        updateUI();
+      } else {
+        requestLocation();
       }
     }
 
-    // పేజీ ఓపెన్ అవ్వగానే డేటా లోడ్ చేయడం
-    fetchRates();
+    // లొకేషన్ పర్మిషన్ & గుర్తింపు
+    function requestLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          
+          if (lat >= 15.8 && lat <= 16.6 && lon >= 79.9 && lon <= 80.8) {
+            setDistrict("guntur");
+          } else if (lat >= 16.3 && lat <= 17.2 && lon >= 80.5 && lon <= 81.5) {
+            setDistrict("vijayawada");
+          } else {
+            setDistrict("guntur");
+          }
+        }, () => {
+          setDistrict("guntur");
+        }, { timeout: 6000 });
+      } else {
+        setDistrict("guntur");
+      }
+    }
+
+    function setDistrict(distKey) {
+      document.getElementById('districtSelect').value = distKey;
+      localStorage.setItem('user_district', distKey);
+      updateUI();
+    }
+
+    function onManualDistrictChange() {
+      const distKey = document.getElementById('districtSelect').value;
+      localStorage.setItem('user_district', distKey);
+      updateUI();
+    }
+
+    function updateUI() {
+      const select = document.getElementById('districtSelect');
+      const distKey = select.value;
+      const distName = select.options[select.selectedIndex].text;
+      document.getElementById('displayDistrict').innerText = distName;
+
+      const zoneKey = zoneMap[distKey] || "coastal";
+      
+      let single = 4.75, farm = 110, retail = 210;
+      if (poultryData && poultryData.zones && poultryData.zones[zoneKey]) {
+        const z = poultryData.zones[zoneKey];
+        single = parseFloat(z.egg_piece);
+        farm = z.farm_rate;
+        retail = z.retail_rate;
+      }
+
+      // 1 గుడ్డు ధర ఆధారంగా 100 గుడ్ల ధర ఆటోమేటిక్ లెక్కింపు
+      const hundred = Math.round(single * 100);
+      document.getElementById('eggSingle').innerText = '₹' + single.toFixed(2);
+      document.getElementById('eggHundred').innerText = '₹' + hundred;
+      document.getElementById('farmPrice').innerText = '₹' + farm;
+      document.getElementById('retailPrice').innerText = '₹' + retail;
+    }
+
+    // ఒకే క్లిక్‌తో వాట్సాప్‌లో వివరాలు పంపే విధానం
+    function shareRatesOnWhatsApp() {
+      const distName = document.getElementById('displayDistrict').innerText;
+      const date = document.getElementById('currentDate').innerText;
+      const egg1 = document.getElementById('eggSingle').innerText;
+      const egg100 = document.getElementById('eggHundred').innerText;
+      const farm = document.getElementById('farmPrice').innerText;
+      const retail = document.getElementById('retailPrice').innerText;
+
+      const text = `🐔 *${distName} డైలీ పౌల్ట్రీ రేట్లు* 🐔\n📅 ${date}\n━━━━━━━━━━━━━━━━━━\n🥚 *గుడ్డు ధర (1 Egg):* ${egg1}\n🥚 *100 గుడ్ల ధర (100 Eggs):* ${egg100}\n🐔 *లైవ్ చికెన్ (Live 1kg):* ${farm}\n🍗 *స్కిన్‌లెస్ చికెన్ (1kg):* ${retail}\n━━━━━━━━━━━━━━━━━━\n📊 *గత 7 రోజుల రికార్డు & డైలీ అలర్ట్స్ కోసం ఇప్పుడే మా యాప్ వాడండి!*`;
+
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./pwabuilder-sw.js');
+    }
+
+    window.onload = initApp;
   </script>
 </body>
 </html>
