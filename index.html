@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP Poultry Rates</title>
 
+  <!-- PWA Settings & Theme -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2e7d32">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- OneSignal Push Notification SDK -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "df96df6e-2691-4c55-b97c-592aa03454f1"
+      });
+    });
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: #f4f6f8; color: #333; padding-bottom: 75px; }
+    
+    header { background-color: #2e7d32; color: #fff; text-align: center; padding: 18px 10px; }
+    header h1 { font-size: 20px; font-weight: 700; }
+    #update-time { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+
+    .container { padding: 15px; max-width: 600px; margin: auto; }
+    .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .card-title { font-size: 16px; font-weight: 700; color: #2e7d32; margin-bottom: 12px; border-bottom: 2px solid #e8f5e9; padding-bottom: 6px; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+    th, td { text-align: left; padding: 10px 6px; font-size: 13px; }
+    th { color: #555; font-size: 12px; background: #fafafa; border-bottom: 1px solid #ddd; }
+    tr:not(:last-child) td { border-bottom: 1px solid #eee; }
+    
+    .rate { font-weight: 700; color: #d32f2f; text-align: right; }
+    .rate-center { font-weight: 700; color: #d32f2f; text-align: center; }
+    .refresh-btn { width: 100%; background: #2e7d32; color: #fff; border: none; padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+
+    /* కింద స్క్రోల్ అయ్యే ప్రకటన బార్ */
+    .bottom-ticker-wrap {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #212121;
+      color: #ffeb3b;
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 2px solid #fbc02d;
+      z-index: 1000;
+    }
+    .bottom-ticker {
+      display: inline-block;
+      padding-left: 100%;
+      animation: bottomTicker 14s linear infinite;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    @keyframes bottomTicker {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-100%, 0, 0); }
+    }
+  </style>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./pwabuilder-sw.js');
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>🐔 AP డైలీ పౌల్ట్రీ రేట్లు</h1>
+    <p id="update-time">ధరలు లోడ్ అవుతున్నాయి...</p>
+  </header>
+
+  <div class="container">
+    <!-- గుడ్ల ధరలు -->
+    <div class="card">
+      <div class="card-title">🥚 AP జిల్లాల గుడ్ల ధరలు (1 Pc & 100 Pcs)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>జిల్లా (District)</th>
+            <th style="text-align: center;">1 గుడ్డు</th>
+            <th style="text-align: right;">100 గుడ్లు</th>
+          </tr>
+        </thead>
+        <tbody id="egg-districts-body">
+          <tr><td colspan="3" style="text-align:center;">లోడ్ అవుతోంది...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- బ్రాయిలర్ కోడి ధరలు -->
+    <div class="card">
+      <div class="card-title">🍗 AP జిల్లాల బ్రాయిలర్ రేట్లు (Broiler Rates / Kg)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>జిల్లా (District)</th>
+            <th style="text-align: center;">ఫామ్ గేట్</th>
+            <th style="text-align: right;">స్కిన్‌లెస్</th>
+          </tr>
+        </thead>
+        <tbody id="broiler-districts-body">
+          <tr><td colspan="3" style="text-align:center;">లోడ్ అవుతోంది...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="refresh-btn" onclick="fetchRates()">ధరలను రీఫ్రెష్ చేయండి</button>
+  </div>
+
+  <!-- స్క్రీన్ కింద తిరిగే ప్రకటన లేబుల్ -->
+  <div class="bottom-ticker-wrap">
+    <div class="bottom-ticker" id="ticker-text">📢 ఆంధ్రప్రదేశ్ పౌల్ట్రీ తాజా సమాచారం: ప్రతిరోజూ ధరలు అప్‌డేట్ అవుతాయి.</div>
+  </div>
+
+  <script>
+    // ఆంధ్రప్రదేశ్ అన్ని జిల్లాల 4 జోన్ల మ్యాపింగ్
+    const districtMapping = [
+      // కోస్తా జోన్
+      { name: "గుంటూరు (Guntur)", zoneKey: "coastal" },
+      { name: "విజయవాడ / NTR (Vijayawada)", zoneKey: "coastal" },
+      { name: "కృష్ణా - మచిలీపట్నం (Krishna)", zoneKey: "coastal" },
+      { name: "బాపట్ల (Bapatla)", zoneKey: "coastal" },
+      { name: "పల్నాడు - నరసరావుపేట (Palnadu)", zoneKey: "coastal" },
+      { name: "ప్రకాశం - ఒంగోలు (Prakasam)", zoneKey: "coastal" },
+      { name: "నెల్లూరు (Nellore)", zoneKey: "coastal" },
+
+      // గోదావరి జోన్
+      { name: "పశ్చిమ గోదావరి - భీమవరం (W.Godavari)", zoneKey: "godavari" },
+      { name: "తూర్పు గోదావరి - రాజమండ్రి (E.Godavari)", zoneKey: "godavari" },
+      { name: "కాకినాడ (Kakinada)", zoneKey: "godavari" },
+      { name: "ఏలూరు (Eluru)", zoneKey: "godavari" },
+      { name: "కోనసీమ (Dr. BR Ambedkar Konaseema)", zoneKey: "godavari" },
+
+      // ఉత్తరాంధ్ర జోన్
+      { name: "విశాఖపట్నం (Visakhapatnam)", zoneKey: "north_coastal" },
+      { name: "విజయనగరం (Vizianagaram)", zoneKey: "north_coastal" },
+      { name: "శ్రీకాకుళం (Srikakulam)", zoneKey: "north_coastal" },
+      { name: "అనకాపల్లి (Anakapalli)", zoneKey: "north_coastal" },
+
+      // రాయలసీమ జోన్
+      { name: "చిత్తూరు (Chittoor)", zoneKey: "rayalaseema" },
+      { name: "తిరుపతి (Tirupati)", zoneKey: "rayalaseema" },
+      { name: "కడప - YSR (Kadapa)", zoneKey: "rayalaseema" },
+      { name: "అనంతపురం (Anantapur)", zoneKey: "rayalaseema" },
+      { name: "కర్నూలు (Kurnool)", zoneKey: "rayalaseema" },
+      { name: "నంద్యాల (Nandyal)", zoneKey: "rayalaseema" },
+      { name: "శ్రీ సత్యసాయి (Sri Sathya Sai)", zoneKey: "rayalaseema" },
+      { name: "అన్నమయ్య - రాయచోటి (Annamayya)", zoneKey: "rayalaseema" }
+    ];
+
+    // ఒకవేళ నెట్‌వర్క్ లేదా ఫైల్ సమస్య వస్తే యాప్ ఖాళీ కాకుండా ఉండే డీఫాల్ట్ డేటా
+    const defaultData = {
+      updated_time: "ఈరోజు తాజా రేట్లు",
+      ticker_text: "📢 ఆంధ్రప్రదేశ్ పౌల్ట్రీ తాజా సమాచారం: 4 జోన్ల ఆధారంగా అన్ని జిల్లాల ధరలు ఇక్కడ చూడవచ్చు.",
+      zones: {
+        coastal: { egg_piece: 4.80, farm_rate: 112, retail_rate: 230 },
+        godavari: { egg_piece: 4.75, farm_rate: 110, retail_rate: 225 },
+        north_coastal: { egg_piece: 4.90, farm_rate: 115, retail_rate: 235 },
+        rayalaseema: { egg_piece: 4.70, farm_rate: 114, retail_rate: 230 }
+      }
+    };
+
+    function renderDisplay(data) {
+      if (data.updated_time) {
+        document.getElementById('update-time').innerText = 'చివరి అప్‌డేట్: ' + data.updated_time;
+      }
+      if (data.ticker_text) {
+        document.getElementById('ticker-text').innerText = data.ticker_text;
+      }
+
+      let eggHtml = '';
+      let broilerHtml = '';
+
+      districtMapping.forEach(dist => {
+        const zoneInfo = data.zones ? data.zones[dist.zoneKey] : null;
+        if (zoneInfo) {
+          const singleRate = Number(zoneInfo.egg_piece);
+          const bulkRate = Math.round(singleRate * 100);
+
+          eggHtml += `<tr>
+            <td>${dist.name}</td>
+            <td class="rate-center">₹ ${singleRate.toFixed(2)}</td>
+            <td class="rate">₹ ${bulkRate}</td>
+          </tr>`;
+
+          broilerHtml += `<tr>
+            <td>${dist.name}</td>
+            <td class="rate-center">₹ ${zoneInfo.farm_rate}</td>
+            <td class="rate">₹ ${zoneInfo.retail_rate}</td>
+          </tr>`;
+        }
+      });
+
+      document.getElementById('egg-districts-body').innerHTML = eggHtml;
+      document.getElementById('broiler-districts-body').innerHTML = broilerHtml;
+    }
+
+    async function fetchRates() {
+      try {
+        const res = await fetch('./rates.json?v=' + Date.now());
+        if (!res.ok) {
+          throw new Error('rates.json not found');
+        }
+        const data = await res.json();
+        renderDisplay(data);
+      } catch (err) {
+        // rates.json లోడ్ కాకపోయినా ఎర్రర్ లేకుండా డీఫాల్ట్ రేట్లు చూపిస్తుంది
+        renderDisplay(defaultData);
+      }
+    }
+
+    // పేజీ ఓపెన్ అవ్వగానే డేటా లోడ్ చేయడం
+    fetchRates();
+  </script>
+</body>
+</html>
