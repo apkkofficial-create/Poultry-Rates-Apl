@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.apkkofficial_create.twa",
+    "sha256_cert_fingerprints": ["42:67:4D:78:A9:E6:59:EC:C1:FD:0E:07:3C:71:A6:C1:63:60:0B:2D:CE:35:4F:9A:5D:A1:80:C1:68:A7:15:0B"]
+  }
+}]
