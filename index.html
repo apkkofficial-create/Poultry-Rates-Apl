@@ -275,14 +275,18 @@
 
     async function initApp() {
       try {
-        const res = await fetch('./rates.json?t=' + Date.now());
+        const res = await fetch('./rates.json?nocache=' + new Date().getTime(), {
+          cache: 'no-store'
+        });
         poultryData = await res.json();
         if (poultryData.date) {
           document.getElementById('currentDate').innerText = 'తేదీ: ' + poultryData.date;
         }
+        updateUI();
       } catch (e) {
         console.error("డేటా రాలేదు:", e);
       }
+
 
       const savedDistrict = localStorage.getItem('user_district');
       if (savedDistrict) {
