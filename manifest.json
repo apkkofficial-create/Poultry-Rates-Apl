@@ -1,4 +1,5 @@
 {
+  "id": "/Poultry-Rates-Apl/",
   "name": "AP Daily Poultry Rates",
   "short_name": "AP Poultry",
   "description": "Daily Andhra Pradesh poultry rates including egg and broiler prices across all districts.",
@@ -21,6 +22,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "AP Poultry Rates App Screen"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "AP Poultry Rates Web Screen"
     }
   ]
 }
