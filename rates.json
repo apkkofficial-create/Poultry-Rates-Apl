@@ -1,30 +1,25 @@
 {
-  "updated_time": "ఈరోజు మధ్యాహ్నం 12:00 PM",
-  "ticker_text": "📢 ఆంధ్రప్రదేశ్ పౌల్ట్రీ తాజా సమాచారం: 4 జోన్ల ఆధారంగా అన్ని జిల్లాల ధరలు అప్‌డేట్ చేయబడ్డాయి.",
+  "date": "04-09-2026",
   "zones": {
     "coastal": {
-      "name": "కోస్తా జోన్ (Coastal Zone)",
-      "egg_piece": 4.80,
-      "farm_rate": 112,
-      "retail_rate": 230
+      "egg_1": 4.75,
+      "farm_rate": 110,
+      "retail_rate": 210
     },
     "godavari": {
-      "name": "గోదావరి జోన్ (Godavari Zone)",
-      "egg_piece": 4.75,
-      "farm_rate": 110,
-      "retail_rate": 225
+      "egg_1": 4.75,
+      "farm_rate": 108,
+      "retail_rate": 205
     },
-    "north_coastal": {
-      "name": "ఉత్తరాంధ్ర జోన్ (North Coastal Zone)",
-      "egg_piece": 4.90,
+    "uttarandhra": {
+      "egg_1": 4.90,
       "farm_rate": 115,
-      "retail_rate": 235
+      "retail_rate": 220
     },
     "rayalaseema": {
-      "name": "రాయలసీమ జోన్ (Rayalaseema Zone)",
-      "egg_piece": 4.70,
-      "farm_rate": 114,
-      "retail_rate": 230
+      "egg_1": 4.70,
+      "farm_rate": 112,
+      "retail_rate": 215
     }
   }
 }
