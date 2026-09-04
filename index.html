@@ -7,6 +7,7 @@
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#0b121c">
 
+  <!-- OneSignal Push Notification SDK -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -14,7 +15,6 @@
       await OneSignal.init({
         appId: "c6a22f3e-4b68-45a9-8356-9ec1dcfecb19",
       });
-      // యాప్ ఓపెన్ చేయగానే నోటిఫికేషన్ పర్మిషన్ అడుగుతుంది
       OneSignal.Notifications.requestPermission();
     });
   </script>
@@ -165,11 +165,13 @@
 <body>
 
   <div class="wrapper">
+    <!-- Header -->
     <div class="header">
       <h1>🐔 AP పౌల్ట్రీ తాజా రేట్లు</h1>
       <div class="date-badge" id="currentDate">తేదీ: 04-09-2026</div>
     </div>
 
+    <!-- District Selection Bar -->
     <div class="district-bar">
       <div class="current-dist">📍 <span id="displayDistrict">గుంటూరు (Guntur)</span></div>
       <select id="districtSelect" class="select-dropdown" onchange="onManualDistrictChange()">
@@ -189,6 +191,7 @@
       </select>
     </div>
 
+    <!-- 1. Egg Card -->
     <div class="item-card">
       <img class="item-image" src="https://img.icons8.com/color/96/egg.png" alt="గుడ్డు ఫోటో">
       <div class="item-title-te">🥚 గుడ్డు ధర వివరాలు</div>
@@ -197,16 +200,17 @@
       <div class="price-box">
         <div class="price-sub">
           <div class="price-label">గుడ్డు ధర (1 Egg)</div>
-          <div class="price-val" id="eggSingle">₹4.75</div>
+          <div class="price-val" id="egg1Display">₹4.75</div>
         </div>
         <div style="width: 1px; height: 35px; background: #37474f;"></div>
         <div class="price-sub">
           <div class="price-label">100 గుడ్ల ధర (100 Eggs)</div>
-          <div class="price-val" id="eggHundred">₹475</div>
+          <div class="price-val" id="egg100Display">₹475</div>
         </div>
       </div>
     </div>
 
+    <!-- 2. Live Chicken Card -->
     <div class="item-card">
       <img class="item-image" src="https://img.icons8.com/color/96/chicken.png" alt="లైవ్ చికెన్ ఫోటో">
       <div class="item-title-te">🐔 లైవ్ చికెన్ ధర (ఫామ్ రేట్)</div>
@@ -214,6 +218,7 @@
       <div class="single-price" id="farmPrice">₹110</div>
     </div>
 
+    <!-- 3. Skinless Chicken Card -->
     <div class="item-card">
       <img class="item-image" src="https://img.icons8.com/color/96/meat.png" alt="స్కిన్‌లెస్ చికెన్ ఫోటో">
       <div class="item-title-te">🍗 స్కిన్‌లెస్ చికెన్ ధర (మార్కెట్ రేట్)</div>
@@ -221,6 +226,7 @@
       <div class="single-price" id="retailPrice">₹210</div>
     </div>
 
+    <!-- 7 Days History Table -->
     <div class="history-card">
       <div class="history-header">📊 గత 7 రోజుల సగటు ధరలు (7 Days History)</div>
       <table>
@@ -243,11 +249,13 @@
       </table>
     </div>
 
+    <!-- WhatsApp Button -->
     <button class="btn-whatsapp" onclick="shareRatesOnWhatsApp()">
       📲 వాట్సాప్‌లో షేర్ చేయండి (Share)
     </button>
   </div>
 
+  <!-- Bottom Advertisement Scrolling Bar -->
   <div class="bottom-ad-bar">
     <div class="ad-label">AD / ప్రకటన</div>
     <div class="ad-ticker-track">
@@ -276,7 +284,6 @@
         console.error("డేటా రాలేదు:", e);
       }
 
-      // గతంలో సేవ్ అయిన జిల్లా ఉంటే లోడ్ అవుతుంది
       const savedDistrict = localStorage.getItem('user_district');
       if (savedDistrict) {
         document.getElementById('districtSelect').value = savedDistrict;
@@ -286,7 +293,6 @@
       }
     }
 
-    // లొకేషన్ పర్మిషన్ & గుర్తింపు
     function requestLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((pos) => {
@@ -328,28 +334,27 @@
 
       const zoneKey = zoneMap[distKey] || "coastal";
       
-      let single = 4.75, farm = 110, retail = 210;
+      let valEgg1 = 4.75, farm = 110, retail = 210;
       if (poultryData && poultryData.zones && poultryData.zones[zoneKey]) {
         const z = poultryData.zones[zoneKey];
-        single = parseFloat(z.egg_piece);
+        valEgg1 = parseFloat(z.egg_1);
         farm = z.farm_rate;
         retail = z.retail_rate;
       }
 
-      // 1 గుడ్డు ధర ఆధారంగా 100 గుడ్ల ధర ఆటోమేటిక్ లెక్కింపు
-      const hundred = Math.round(single * 100);
-      document.getElementById('eggSingle').innerText = '₹' + single.toFixed(2);
-      document.getElementById('eggHundred').innerText = '₹' + hundred;
+      // 1 గుడ్డు ధర ఆధారంగా 100 గుడ్ల ధర లెక్కింపు
+      const valEgg100 = Math.round(valEgg1 * 100);
+      document.getElementById('egg1Display').innerText = '₹' + valEgg1.toFixed(2);
+      document.getElementById('egg100Display').innerText = '₹' + valEgg100;
       document.getElementById('farmPrice').innerText = '₹' + farm;
       document.getElementById('retailPrice').innerText = '₹' + retail;
     }
 
-    // ఒకే క్లిక్‌తో వాట్సాప్‌లో వివరాలు పంపే విధానం
     function shareRatesOnWhatsApp() {
       const distName = document.getElementById('displayDistrict').innerText;
       const date = document.getElementById('currentDate').innerText;
-      const egg1 = document.getElementById('eggSingle').innerText;
-      const egg100 = document.getElementById('eggHundred').innerText;
+      const egg1 = document.getElementById('egg1Display').innerText;
+      const egg100 = document.getElementById('egg100Display').innerText;
       const farm = document.getElementById('farmPrice').innerText;
       const retail = document.getElementById('retailPrice').innerText;
 
