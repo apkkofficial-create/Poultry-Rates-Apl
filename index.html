@@ -280,12 +280,16 @@
         });
         poultryData = await res.json();
         if (poultryData.date) {
-          document.getElementById('currentDate').innerText = 'తేదీ: ' + poultryData.date;
+                 updateUI();
+ document.getElementById('currentDate').innerText = 'తేదీ: ' + poultryData.date;
         }
         updateUI();
       } catch (e) {
-        console.error("డేటా రాలేదు:", e);
-      }
+        
+      }    }
+  } catch (e) {
+
+  }
 
 
       const savedDistrict = localStorage.getItem('user_district');
