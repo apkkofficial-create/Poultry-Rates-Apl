@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Daily Poultry Rates</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#075e54">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d1b2a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #1b263b;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h2 {
+            color: #00e676;
+            margin-bottom: 10px;
+        }
+        .rate-box {
+            background: #415a77;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            border-left: 5px solid #00e676;
+        }
+        .rate-item {
+            font-size: 18px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        button {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🐔 AP పౌల్ట్రీ తాజా రేట్లు</h2>
+        <p>తేదీ: <span id="current-date">--</span></p>
+
+        <div class="rate-box">
+            <div class="rate-item">🥚 1 గుడ్డు: ₹<span id="egg-1">--</span></div>
+            <div class="rate-item">🥚 100 గుడ్లు: ₹<span id="egg-100">--</span></div>
+            <div class="rate-item">🐓 లైవ్ చికెన్ (1Kg): ₹<span id="chicken-live">--</span></div>
+            <div class="rate-item">🍗 స్కిన్‌లెస్ చికెన్ (1Kg): ₹<span id="chicken-skinless">--</span></div>
+        </div>
+
+        <button id="share-btn">📲 WhatsApp లో షేర్ చేయండి</button>
+    </div>
+
+    <canvas id="rateCanvas" width="1080" height="1080"></canvas>
+
+    <!-- OneSignal Push Notification SDK -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "df96df6e-2691-4c55-b97c-592aa03454f1",
+          allowLocalhostAsSecureOrigin: true,
+        });
+        OneSignal.Notifications.requestPermission();
+      });
+    </script>
+
+    <!-- PWABuilder Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('pwabuilder-sw.js')
+          .then(() => console.log('SW Registered'))
+          .catch((err) => console.log('SW Error:', err));
+      }
+    </script>
+
+    <script>
+        async function loadRates() {
+            try {
+                const response = await fetch('rates.json');
+                const data = await response.json();
+                document.getElementById('current-date').innerText = data.date || '05/09/2026';
+                document.getElementById('egg-1').innerText = data.egg1 || '4.85';
+                document.getElementById('egg-100').innerText = data.egg100 || '485';
+                document.getElementById('chicken-live').innerText = data.chickenLive || '108';
+                document.getElementById('chicken-skinless').innerText = data.chickenSkinless || '205';
+            } catch (error) {
+                console.error('Rates load failed', error);
+            }
+        }
+        loadRates();
+
+        // WhatsApp Share Functionality
+        document.getElementById('share-btn').addEventListener('click', async () => {
+            const canvas = document.getElementById('rateCanvas');
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#075e54';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.roundRect(40, 40, 1000, 1000, 30);
+            ctx.fill();
+
+            ctx.fillStyle = '#000000';
+            ctx.font = 'bold 50px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('🐔 AP పౌల్ట్రీ తాజా రేట్లు', 540, 160);
+
+            ctx.font = '35px Arial';
+            ctx.fillText('తేదీ: ' + document.getElementById('current-date').innerText, 540, 230);
+
+            ctx.textAlign = 'left';
+            ctx.font = 'bold 45px Arial';
+            ctx.fillText('🥚 1 గుడ్డు: ₹' + document.getElementById('egg-1').innerText, 120, 400);
+            ctx.fillText('🥚 100 గుడ్లు: ₹' + document.getElementById('egg-100').innerText, 120, 520);
+            ctx.fillText('🐓 లైవ్ చికెన్ (1Kg): ₹' + document.getElementById('chicken-live').innerText, 120, 640);
+            ctx.fillText('🍗 స్కిన్‌లెస్ చికెన్ (1Kg): ₹' + document.getElementById('chicken-skinless').innerText, 120, 760);
+
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 30px Arial';
+            ctx.fillStyle = '#075e54';
+            ctx.fillText('తాజా రేట్ల కోసం యాప్ చూడండి:', 540, 910);
+            ctx.font = '26px Arial';
+            ctx.fillText('https://apkkofficial-create.github.io/Poultry-Rates-Apl/', 540, 960);
+
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], 'poultry-rates.png', { type: 'image/png' });
+                const shareData = {
+                    files: [file],
+                    title: 'AP Daily Poultry Rates',
+                    text: '🐔 తాజా పౌల్ట్రీ ధరల కోసం యాప్ చూడండి:\nhttps://apkkofficial-create.github.io/Poultry-Rates-Apl/'
+                };
+
+                if (navigator.canShare && navigator.canShare(shareData)) {
+                    try {
+                        await navigator.share(shareData);
+                    } catch (err) {}
+                }
+            }, 'image/png');
+        });
+    </script>
+</body>
+</html>
