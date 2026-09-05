@@ -1,0 +1,128 @@
+{
+  "last_updated": "2026-09-05T08:00:00+05:30",
+  "source": "NECC & AP బ్రాయిలర్ కోఆర్డినేషన్ కమిటీ",
+  "zones": {
+    "godavari": {
+      "name": "గోదావరి (Godavari)",
+      "districts": [
+        "తూర్పు గోదావరి (East Godavari)",
+        "పశ్చిమ గోదావరి (West Godavari)",
+        "కాకినాడ (Kakinada)",
+        "కోనసీమ (Konaseema)",
+        "ఏలూరు (Eluru)"
+      ],
+      "rates": {
+        "yesterday": {
+          "singleEgg": 4.70,
+          "live": 105,
+          "skinless": 200
+        },
+        "today": {
+          "singleEgg": 4.80,
+          "live": 110,
+          "skinless": 210
+        }
+      },
+      "history": [
+        { "date": "05-09", "egg": 480, "live": 110 },
+        { "date": "04-09", "egg": 475, "live": 108 },
+        { "date": "03-09", "egg": 475, "live": 108 },
+        { "date": "02-09", "egg": 470, "live": 105 },
+        { "date": "01-09", "egg": 470, "live": 105 }
+      ]
+    },
+    "krishna_guntur": {
+      "name": "కృష్ణా - గుంటూరు (Krishna - Guntur)",
+      "districts": [
+        "గుంటూరు (Guntur)",
+        "కృష్ణా (Machilipatnam)",
+        "ఎన్టీఆర్ విజయవాడ (Vijayawada)",
+        "బాపట్ల (Bapatla)",
+        "పల్నాడు (Palnadu)",
+        "ప్రకాశం (Ongole)"
+      ],
+      "rates": {
+        "yesterday": {
+          "singleEgg": 4.75,
+          "live": 108,
+          "skinless": 205
+        },
+        "today": {
+          "singleEgg": 4.85,
+          "live": 112,
+          "skinless": 212
+        }
+      },
+      "history": [
+        { "date": "05-09", "egg": 485, "live": 112 },
+        { "date": "04-09", "egg": 480, "live": 110 },
+        { "date": "03-09", "egg": 480, "live": 110 },
+        { "date": "02-09", "egg": 475, "live": 108 },
+        { "date": "01-09", "egg": 475, "live": 108 }
+      ]
+    },
+    "rayalaseema": {
+      "name": "రాయలసీమ (Rayalaseema)",
+      "districts": [
+        "చిత్తూరు (Chittoor)",
+        "తిరుపతి (Tirupati)",
+        "వైఎస్సార్ కడప (Kadapa)",
+        "అనంతపురం (Anantapur)",
+        "కర్నూలు (Kurnool)",
+        "నంద్యాల (Nandyal)",
+        "శ్రీ సత్యసాయి (Puttaparthi)",
+        "అన్నమయ్య (Rayachoti)"
+      ],
+      "rates": {
+        "yesterday": {
+          "singleEgg": 4.85,
+          "live": 110,
+          "skinless": 210
+        },
+        "today": {
+          "singleEgg": 4.95,
+          "live": 115,
+          "skinless": 218
+        }
+      },
+      "history": [
+        { "date": "05-09", "egg": 495, "live": 115 },
+        { "date": "04-09", "egg": 490, "live": 112 },
+        { "date": "03-09", "egg": 490, "live": 112 },
+        { "date": "02-09", "egg": 485, "live": 110 },
+        { "date": "01-09", "egg": 480, "live": 110 }
+      ]
+    },
+    "uttarandhra": {
+      "name": "ఉత్తరాంధ్ర & నెల్లూరు (Uttarandhra)",
+      "districts": [
+        "విశాఖపట్నం (Visakhapatnam)",
+        "అనకాపల్లి (Anakapalli)",
+        "విజయనగరం (Vizianagaram)",
+        "శ్రీకాకుళం (Srikakulam)",
+        "మన్యం (Manyam)",
+        "అల్లూరి సీతారామరాజు (Paderu)",
+        "శ్రీ పొట్టి శ్రీరాములు నెల్లూరు (Nellore)"
+      ],
+      "rates": {
+        "yesterday": {
+          "singleEgg": 4.65,
+          "live": 104,
+          "skinless": 198
+        },
+        "today": {
+          "singleEgg": 4.75,
+          "live": 108,
+          "skinless": 204
+        }
+      },
+      "history": [
+        { "date": "05-09", "egg": 475, "live": 108 },
+        { "date": "04-09", "egg": 470, "live": 106 },
+        { "date": "03-09", "egg": 470, "live": 106 },
+        { "date": "02-09", "egg": 465, "live": 104 },
+        { "date": "01-09", "egg": 465, "live": 104 }
+      ]
+    }
+  }
+}
