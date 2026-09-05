@@ -1,16 +1,11 @@
 {
-  "name": "AP డైలీ పౌల్ట్రీ తాజా రేట్లు",
-  "short_name": "AP పౌల్ట్రీ",
-  "description": "ఆంధ్రప్రదేశ్ జిల్లాల రోజువారీ గుడ్లు మరియు బ్రాయిలర్ చికెన్ లైవ్ మార్కెట్ రేట్లు.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "name": "AP Daily Poultry Rates",
+  "short_name": "Poultry Rates",
+  "start_url": "/Poultry-Rates-Apl/",
+  "scope": "/Poultry-Rates-Apl/",
   "display": "standalone",
-  "background_color": "#0b1329",
-  "theme_color": "#0b1329",
-  "orientation": "portrait-primary",
-  "lang": "te",
-  "dir": "ltr",
-  "categories": ["business", "food", "utilities"],
+  "background_color": "#2575fc",
+  "theme_color": "#2575fc",
   "icons": [
     {
       "src": "icon-192.png",
@@ -23,15 +18,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "తాజా రేట్లు",
-      "short_name": "రేట్లు",
-      "description": "ఈరోజు గుడ్లు మరియు చికెన్ రేట్లు చూడండి",
-      "url": "./index.html",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
