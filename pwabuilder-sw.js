@@ -32,7 +32,6 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  // rates.json ను ఎల్లప్పుడూ లైవ్ నెట్‌వర్క్ నుంచే తెచ్చుకోవాలి
   if (event.request.url.includes("rates.json")) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))
