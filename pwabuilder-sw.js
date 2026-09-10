@@ -1,48 +1,24 @@
-const CACHE_NAME = "pwabuilder-poultry-v3";
-const OFFLINE_URL = "./index.html";
-
-const PRECACHE_ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./rates.json",
-  "./icon-192.png",
-  "./icon-512.png"
-];
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
-  );
-  self.skipWaiting();
-});
-
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      );
-    })
-  );
-  self.clients.claim();
-});
-
-self.addEventListener("fetch", (event) => {
-  if (event.request.url.includes("rates.json")) {
-    event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request))
-    );
-    return;
-  }
-
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request).catch(() => caches.match(OFFLINE_URL));
-    })
-  );
-});
+{
+  "name": "AP Daily Poultry Rates - ఆంధ్రప్రదేశ్ డైలీ పౌల్ట్రీ రేట్లు",
+  "short_name": "AP పౌల్ట్రీ రేట్లు",
+  "description": "ఆంధ్రప్రదేశ్ వ్యాప్తంగా రోజువారీ కోడిగుడ్లు మరియు చికెన్ తాజా మార్కెట్ ధరలు.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b132b",
+  "theme_color": "#0b132b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
