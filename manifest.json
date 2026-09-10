@@ -1,8 +1,10 @@
 {
-  "name": "AP Daily Poultry Rates - ఆంధ్రప్రదేశ్ డైలీ పౌల్ట్రీ రేట్లు",
-  "short_name": "AP పౌల్ట్రీ రేట్లు",
-  "description": "ఆంధ్రప్రదేశ్ వ్యాప్తంగా రోజువారీ కోడిగుడ్లు మరియు చికెన్ తాజా మార్కెట్ ధరలు.",
+  "id": "/Poultry-Rates-Apl/",
+  "name": "AP Daily Poultry Rates",
+  "short_name": "AP Rates",
+  "description": "Daily Andhra Pradesh poultry, egg and chicken market rates directly from NECC and APPFTWA.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b132b",
   "theme_color": "#0b132b",
@@ -12,13 +14,32 @@
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Check Rates",
+      "url": "./index.html",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
