@@ -1,128 +1,77 @@
 {
-  "last_updated": "2026-09-10T08:00:00+05:30",
-  "source": "NECC & APPFTWA",
+  "last_updated": "2026-09-11T08:00:00Z",
   "zones": {
-    "godavari": {
-      "name": "గోదావరి (Godavari)",
-      "districts": [
-        "తూర్పు గోదావరి (East Godavari)",
-        "పశ్చిమ గోదావరి (West Godavari)",
-        "కాకినాడ (Kakinada)",
-        "కోనసీమ (Konaseema)",
-        "ఏలూరు (Eluru)"
-      ],
-      "rates": {
-        "yesterday": {
-          "singleEgg": 4.70,
-          "live": 105,
-          "skinless": 200
-        },
-        "today": {
-          "singleEgg": 4.80,
-          "live": 110,
-          "skinless": 210
-        }
-      },
-      "history": [
-        { "date": "05-09", "egg": 465, "live": 110 },
-        { "date": "04-09", "egg": 475, "live": 108 },
-        { "date": "03-09", "egg": 475, "live": 108 },
-        { "date": "02-09", "egg": 475, "live": 105 },
-        { "date": "01-09", "egg": 460, "live": 105 }
-      ]
-    },
     "krishna_guntur": {
-      "name": "కృష్ణా - గుంటూరు (Krishna - Guntur)",
-      "districts": [
-        "గుంటూరు (Guntur)",
-        "బాపట్ల (Bapatla)",
-        "కృష్ణా/విజయవాడ (Vijayawada)",
-        "బాపట్ల (Bapatla)",
-        "పల్నాడు (Palnadu)",
-        "ఒంగోలు (Ongole)"
-      ],
       "rates": {
-        "yesterday": {
-          "singleEgg": 4.75,
-          "live": 108,
-          "skinless": 205
-        },
         "today": {
           "singleEgg": 4.85,
           "live": 112,
           "skinless": 212
-        }
-      },
-      "history": [
-        { "date": "05-09", "egg": 465, "live": 112 },
-        { "date": "04-09", "egg": 475, "live": 110 },
-        { "date": "03-09", "egg": 475, "live": 110 },
-        { "date": "02-09", "egg": 475, "live": 108 },
-        { "date": "01-09", "egg": 460, "live": 108 }
-      ]
+        },
+        "history": [
+          { "date": "10-Sep", "singleEgg": 4.80, "live": 110, "skinless": 210 },
+          { "date": "09-Sep", "singleEgg": 4.75, "live": 108, "skinless": 205 },
+          { "date": "08-Sep", "singleEgg": 4.75, "live": 105, "skinless": 200 },
+          { "date": "07-Sep", "singleEgg": 4.70, "live": 105, "skinless": 200 },
+          { "date": "06-Sep", "singleEgg": 4.65, "live": 102, "skinless": 195 },
+          { "date": "05-Sep", "singleEgg": 4.60, "live": 100, "skinless": 190 },
+          { "date": "04-Sep", "singleEgg": 4.55, "live": 98, "skinless": 185 }
+        ]
+      }
     },
-    "rayalaseema": {
-      "name": "రాయలసీమ (Rayalaseema)",
-      "districts": [
-        "చిత్తూరు (Chittoor)",
-        "తిరుపతి (Tirupati)",
-        "కడప (Kadapa)",
-        "అనంతపురం (Anantapur)",
-        "కర్నూలు (Kurnool)",
-        "నంద్యాల (Nandyal)",
-        "పుట్టపర్తి (Puttaparthi)",
-        "రాయచోటి (Rayachoti)"
-      ],
+    "godavari": {
       "rates": {
-        "yesterday": {
-          "singleEgg": 4.85,
+        "today": {
+          "singleEgg": 4.82,
           "live": 110,
           "skinless": 210
         },
+        "history": [
+          { "date": "10-Sep", "singleEgg": 4.78, "live": 108, "skinless": 208 },
+          { "date": "09-Sep", "singleEgg": 4.72, "live": 106, "skinless": 202 },
+          { "date": "08-Sep", "singleEgg": 4.70, "live": 104, "skinless": 198 },
+          { "date": "07-Sep", "singleEgg": 4.68, "live": 104, "skinless": 198 },
+          { "date": "06-Sep", "singleEgg": 4.62, "live": 100, "skinless": 190 },
+          { "date": "05-Sep", "singleEgg": 4.58, "live": 98, "skinless": 188 },
+          { "date": "04-Sep", "live": 96, "singleEgg": 4.52, "skinless": 182 }
+        ]
+      }
+    },
+    "rayalaseema": {
+      "rates": {
         "today": {
-          "singleEgg": 4.95,
+          "singleEgg": 4.90,
           "live": 115,
           "skinless": 218
-        }
-      },
-      "history": [
-        { "date": "05-09", "egg": 480, "live": 115 },
-        { "date": "04-09", "egg": 490, "live": 112 },
-        { "date": "03-09", "egg": 490, "live": 112 },
-        { "date": "02-09", "egg": 490, "live": 110 },
-        { "date": "01-09", "egg": 475, "live": 110 }
-      ]
+        },
+        "history": [
+          { "date": "10-Sep", "singleEgg": 4.85, "live": 112, "skinless": 215 },
+          { "date": "09-Sep", "singleEgg": 4.80, "live": 110, "skinless": 210 },
+          { "date": "08-Sep", "singleEgg": 4.78, "live": 108, "skinless": 205 },
+          { "date": "07-Sep", "singleEgg": 4.72, "live": 106, "skinless": 202 },
+          { "date": "06-Sep", "singleEgg": 4.70, "live": 105, "skinless": 200 },
+          { "date": "05-Sep", "singleEgg": 4.65, "live": 102, "skinless": 195 },
+          { "date": "04-Sep", "singleEgg": 4.60, "live": 100, "skinless": 190 }
+        ]
+      }
     },
     "uttarandhra": {
-      "name": "ఉత్తరాంధ్ర & నెల్లూరు (Uttarandhra)",
-      "districts": [
-        "విశాఖపట్నం (Visakhapatnam)",
-        "అనకాపల్లి (Anakapalli)",
-        "విజయనగరం (Vizianagaram)",
-        "శ్రీకాకుళం (Srikakulam)",
-        "మన్యం (Manyam)",
-        "అల్లూరి సీతారామరాజు (ASR)",
-        "శ్రీ పొట్టి శ్రీరాములు నెల్లూరు (Nellore)"
-      ],
       "rates": {
-        "yesterday": {
-          "singleEgg": 4.65,
-          "live": 102,
-          "skinless": 198
-        },
         "today": {
-          "singleEgg": 4.75,
-          "live": 108,
-          "skinless": 205
-        }
-      },
-      "history": [
-        { "date": "05-09", "egg": 455, "live": 108 },
-        { "date": "04-09", "egg": 470, "live": 106 },
-        { "date": "03-09", "egg": 470, "live": 106 },
-        { "date": "02-09", "egg": 470, "live": 104 },
-        { "date": "01-09", "egg": 455, "live": 104 }
-      ]
+          "singleEgg": 4.80,
+          "live": 114,
+          "skinless": 215
+        },
+        "history": [
+          { "date": "10-Sep", "singleEgg": 4.75, "live": 112, "skinless": 212 },
+          { "date": "09-Sep", "singleEgg": 4.70, "live": 110, "skinless": 208 },
+          { "date": "08-Sep", "singleEgg": 4.68, "live": 108, "skinless": 204 },
+          { "date": "07-Sep", "singleEgg": 4.65, "live": 105, "skinless": 200 },
+          { "date": "06-Sep", "singleEgg": 4.60, "live": 102, "skinless": 195 },
+          { "date": "05-Sep", "singleEgg": 4.55, "live": 100, "skinless": 190 },
+          { "date": "04-Sep", "singleEgg": 4.50, "live": 98, "skinless": 185 }
+        ]
+      }
     }
   }
 }
