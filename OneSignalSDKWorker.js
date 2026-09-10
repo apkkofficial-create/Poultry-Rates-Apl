@@ -1,2 +1,2 @@
 importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js');
-importScripts('./pwabuilder-sw.js');
+importScripts('/Poultry-Rates-Apl/pwabuilder-sw.js');
