@@ -5,7 +5,7 @@
     "krishna_guntur": {
       "rates": {
         "today": {
-          "singleEgg": 4.85,
+          "singleEgg": 5.85,
           "live": 112,
           "skinless": 212
         },
@@ -23,7 +23,7 @@
     "godavari": {
       "rates": {
         "today": {
-          "singleEgg": 4.82,
+          "singleEgg": 5.82,
           "live": 110,
           "skinless": 210
         },
@@ -41,7 +41,7 @@
     "rayalaseema": {
       "rates": {
         "today": {
-          "singleEgg": 4.90,
+          "singleEgg": 5.90,
           "live": 115,
           "skinless": 218
         },
@@ -59,7 +59,7 @@
     "uttarandhra": {
       "rates": {
         "today": {
-          "singleEgg": 4.80,
+          "singleEgg": 5.80,
           "live": 114,
           "skinless": 215
         },
