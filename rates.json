@@ -1,5 +1,6 @@
 {
   "last_updated": "2026-09-11T08:00:00Z",
+  "advertisement": "📢 పౌల్ట్రీ వ్యాపార ప్రకటనలు: మీ ఫారమ్ లేదా చికెన్ షాప్ ప్రమోషన్ కొరకు సంప్రదించండి.",
   "zones": {
     "krishna_guntur": {
       "rates": {
@@ -33,7 +34,7 @@
           { "date": "07-Sep", "singleEgg": 4.68, "live": 104, "skinless": 198 },
           { "date": "06-Sep", "singleEgg": 4.62, "live": 100, "skinless": 190 },
           { "date": "05-Sep", "singleEgg": 4.58, "live": 98, "skinless": 188 },
-          { "date": "04-Sep", "live": 96, "singleEgg": 4.52, "skinless": 182 }
+          { "date": "04-Sep", "singleEgg": 4.52, "live": 96, "skinless": 182 }
         ]
       }
     },
