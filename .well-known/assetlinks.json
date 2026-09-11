@@ -1,8 +1,8 @@
 [{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "io.github.apkkofficial_create.twa",
-    "sha256_cert_fingerprints": ["42:67:4D:78:A9:E6:59:EC:C1:FD:0E:07:3C:71:A6:C1:63:60:0B:2D:CE:35:4F:9A:5D:A1:80:C1:68:A7:15:0B"]
-  }
-}]
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.apkkofficial_create.twa",
+        "sha256_cert_fingerprints": ["C3:9C:F0:6C:33:F7:1D:9B:1D:9C:67:8A:5E:D7:A3:32:F5:06:EF:EF:9E:3E:A1:DF:B8:1A:EA:45:B2:9A:25:76"]
+      }
+    }]
