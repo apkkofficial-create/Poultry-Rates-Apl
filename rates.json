@@ -15,8 +15,8 @@
           { "date": "08-Sep", "singleEgg": 4.75, "live": 105, "skinless": 200 },
           { "date": "07-Sep", "singleEgg": 4.70, "live": 105, "skinless": 200 },
           { "date": "06-Sep", "singleEgg": 4.65, "live": 102, "skinless": 195 },
-          { "date": "05-Sep", "singleEgg": 4.60, "live": 100, "skinless": 190 },
-          { "date": "04-Sep", "singleEgg": 4.55, "live": 98, "skinless": 185 }
+          
+          
         ]
       }
     },
@@ -33,8 +33,8 @@
           { "date": "08-Sep", "singleEgg": 4.70, "live": 104, "skinless": 198 },
           { "date": "07-Sep", "singleEgg": 4.68, "live": 104, "skinless": 198 },
           { "date": "06-Sep", "singleEgg": 4.62, "live": 100, "skinless": 190 },
-          { "date": "05-Sep", "singleEgg": 4.58, "live": 98, "skinless": 188 },
-          { "date": "04-Sep", "singleEgg": 4.52, "live": 96, "skinless": 182 }
+          
+          
         ]
       }
     },
@@ -51,8 +51,8 @@
           { "date": "08-Sep", "singleEgg": 4.78, "live": 108, "skinless": 205 },
           { "date": "07-Sep", "singleEgg": 4.72, "live": 106, "skinless": 202 },
           { "date": "06-Sep", "singleEgg": 4.70, "live": 105, "skinless": 200 },
-          { "date": "05-Sep", "singleEgg": 4.65, "live": 102, "skinless": 195 },
-          { "date": "04-Sep", "singleEgg": 4.60, "live": 100, "skinless": 190 }
+          
+          
         ]
       }
     },
@@ -69,8 +69,8 @@
           { "date": "08-Sep", "singleEgg": 4.68, "live": 108, "skinless": 204 },
           { "date": "07-Sep", "singleEgg": 4.65, "live": 105, "skinless": 200 },
           { "date": "06-Sep", "singleEgg": 4.60, "live": 102, "skinless": 195 },
-          { "date": "05-Sep", "singleEgg": 4.55, "live": 100, "skinless": 190 },
-          { "date": "04-Sep", "singleEgg": 4.50, "live": 98, "skinless": 185 }
+          
+          
         ]
       }
     }
