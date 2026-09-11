@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>అడ్మిన్ కంట్రోల్ ప్యానెల్</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, sans-serif; }
+    body { background: #070e1e; color: #fff; padding: 20px; }
+    .panel { max-width: 480px; margin: auto; background: #111e38; padding: 20px; border-radius: 12px; border: 1px solid #1e293b; }
+    h2 { color: #38bdf8; text-align: center; margin-bottom: 20px; }
+    label { display: block; font-size: 13px; margin: 12px 0 4px; color: #94a3b8; }
+    input, textarea, select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #334155; background: #0a1426; color: #fff; font-size: 15px; outline: none; }
+    .zone-box { background: #0d1a33; padding: 12px; border-radius: 8px; margin-top: 10px; border: 1px solid #1c2e4a; }
+    .zone-title { color: #fbbf24; font-weight: bold; font-size: 14px; margin-bottom: 8px; }
+    button { width: 100%; background: #22c55e; color: #fff; padding: 14px; border: none; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #16a34a; }
+  </style>
+</head>
+<body>
+
+<div class="panel">
+  <h2>🔒 అడ్మిన్ రేట్ల కంట్రోల్</h2>
+
+  <label>సీక్రెట్ పిన్ (Security PIN)</label>
+  <input type="password" id="pin" placeholder="Enter PIN (Default: 1234)" />
+
+  <label>తేదీ (Date)</label>
+  <input type="text" id="time" value="11-09-2026" />
+
+  <label>ప్రకటన టెక్స్ట్ (Advertisement Text)</label>
+  <textarea id="ad" rows="2">📢 పౌల్ట్రీ వ్యాపార ప్రకటనల కోసం సంప్రదించండి | ఫోన్: 98480xxxxx</textarea>
+
+  <!-- విజయవాడ / గుంటూరు జోన్ -->
+  <div class="zone-box">
+    <div class="zone-title">1. విజయవాడ / గుంటూరు జోన్</div>
+    <label>1 గుడ్డు (₹)</label>
+    <input type="number" step="0.01" id="vja_egg" value="4.85" />
+    <label>లైవ్ చికెన్ 1 Kg (₹)</label>
+    <input type="number" id="vja_live" value="112" />
+    <label>స్కిన్‌లెస్ చికెన్ 1 Kg (₹)</label>
+    <input type="number" id="vja_skinless" value="212" />
+  </div>
+
+  <!-- గోదావరి జోన్ -->
+  <div class="zone-box">
+    <div class="zone-title">2. గోదావరి జోన్</div>
+    <label>1 గుడ్డు (₹)</label>
+    <input type="number" step="0.01" id="god_egg" value="4.80" />
+    <label>లైవ్ చికెన్ 1 Kg (₹)</label>
+    <input type="number" id="god_live" value="110" />
+    <label>స్కిన్‌లెస్ చికెన్ 1 Kg (₹)</label>
+    <input type="number" id="god_skinless" value="210" />
+  </div>
+
+  <button onclick="saveChanges()">రైతుల యాప్‌లో అప్‌డేట్ చేయండి ➔</button>
+</div>
+
+<script>
+  function saveChanges() {
+    const pin = document.getElementById('pin').value;
+    if (pin !== "1234") {
+      alert("తప్పు పిన్ (Incorrect PIN)!");
+      return;
+    }
+    alert("రేట్లు మరియు ప్రకటన వివరాలు అప్‌డేట్ అయ్యాయి!");
+  }
+</script>
+</body>
+</html>
