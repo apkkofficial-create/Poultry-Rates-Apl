@@ -5,9 +5,9 @@
     "krishna_guntur": {
       "rates": {
         "today": {
-          "singleEgg": 4.85,
-          "live": 112,
-          "skinless": 212
+          "singleEgg": 5.85,
+          "live": 122,
+          "skinless": 242
         },
         "history": [
           { "date": "10-Sep", "singleEgg": 4.80, "live": 110, "skinless": 210 },
