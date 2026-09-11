@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>అడ్మిన్ కంట్రోల్ ప్యానెల్</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, sans-serif; }
+    body { background: #0f172a; color: #fff; padding: 20px; }
+    .panel { max-width: 450px; margin: auto; background: #1e293b; padding: 20px; border-radius: 12px; }
+    h2 { color: #38bdf8; text-align: center; margin-bottom: 20px; }
+    label { display: block; font-size: 13px; margin: 10px 0 4px; color: #94a3b8; }
+    input, textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #334155; background: #0d1527; color: #fff; font-size: 15px; }
+    button { width: 100%; background: #0284c7; color: #fff; padding: 12px; border: none; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #0369a1; }
+  </style>
+</head>
+<body>
+
+<div class="panel">
+  <h2>🔒 అడ్మిన్ రేట్ల కంట్రోల్</h2>
+
+  <label>సీక్రెట్ పిన్ (Default: 1234)</label>
+  <input type="password" id="pin" placeholder="Enter PIN" />
+
+  <label>తేదీ & సమయం (Date & Time)</label>
+  <input type="text" id="time" value="11-09-2026 | 03:30 PM" />
+
+  <label>1 గుడ్డు రేటు (₹)</label>
+  <input type="number" step="0.01" id="egg" value="4.85" />
+
+  <label>లైవ్ చికెన్ 1 Kg (₹)</label>
+  <input type="number" id="live" value="112" />
+
+  <label>స్కిన్‌లెస్ చికెన్ 1 Kg (₹)</label>
+  <input type="number" id="skinless" value="212" />
+
+  <label>ప్రకటన టెక్స్ట్ (Advertisement Text)</label>
+  <textarea id="ad" rows="2">శ్రీ లక్ష్మి పౌల్ట్రీ ఫీడ్స్ & చిక్స్ - సంప్రదించండి: 98480xxxxx</textarea>
+
+  <button onclick="saveChanges()">రైతుల యాప్‌లో అప్‌డేట్ చేయండి ➔</button>
+</div>
+
+<script>
+  function saveChanges() {
+    const pin = document.getElementById('pin').value;
+    if (pin !== "1234") {
+      alert("తప్పు పిన్ (Incorrect PIN)!");
+      return;
+    }
+
+    const payload = {
+      time: document.getElementById('time').value,
+      egg: document.getElementById('egg').value,
+      live: document.getElementById('live').value,
+      skinless: document.getElementById('skinless').value,
+      ad: document.getElementById('ad').value
+    };
+
+    localStorage.setItem('poultry_data', JSON.stringify(payload));
+    alert("రేట్లు మరియు ప్రకటన విజయవంతంగా అప్‌డేట్ అయ్యాయి!");
+  }
+</script>
+</body>
+</html>
